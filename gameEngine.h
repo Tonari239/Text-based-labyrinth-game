@@ -12,9 +12,18 @@ class GameEngine
 	static MapInfo previousPreviousMapInfo;
 
 	void positionHeroAtStart();
+	void generateMap();
+	void collectTreasure(int x, int y);
+	void determineAction(int x,int y);
+	bool destinationIsWall(int x,int y) const;
+	bool destinationIsTreasure(int x,int y) const;
+	bool destinationIsMonster(int x,int y) const;
+	bool destinationIsExit(int x,int y) const;
+	void actOnDirection(int x, int y);
+
 public:
 	GameEngine(const Hero& hero);
-	void moveHero();
+	void moveHero(string direction);
 	void generateLevel();
 	static void updatePreviousMapInfo(Map currentMap);
 

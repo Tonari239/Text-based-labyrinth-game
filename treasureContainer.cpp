@@ -112,6 +112,12 @@ void TreasureContainer::addTreasure(const Treasure& T)
 	mData[mCount++] = T.clone();
 }
 
+void TreasureContainer::addTreasure(Treasure* T)
+{
+	resizeAccordingly();
+	mData[mCount++] = T;
+}
+
 void TreasureContainer::removeIndex(int index)
 {
 	

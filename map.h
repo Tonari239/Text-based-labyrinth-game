@@ -33,8 +33,11 @@ public:
 	int getCols() const;
 	void setEntityOnMap(int x,int y,char c);
 	void markCellAsVisited(int x, int y);
-	Grid& getGrid();
+	const Cell& getCell(int x, int y) const;
 
+	int getMonsterIndexByCoordinates(int x, int y) const;
+	int getTreasureIndexByCoordinates(int x,int y) const;
+	friend class GameEngine;
 };
 
 #endif

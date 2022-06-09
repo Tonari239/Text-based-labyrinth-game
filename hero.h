@@ -33,12 +33,13 @@ private:
 protected:
 public:
 
-	friend void Battle(Hero& hero,Monster& monster);
+	bool battle(Monster& monster);
 	void attack(Monster& monster);
 	const Inventory& getInventory() const;
 	void levelUp() override;
 	int getCurrentLevel() const;
 	void setCoordinates(int x, int y);
+	void takeTreasure(const Treasure& treasure);
 };
 
 

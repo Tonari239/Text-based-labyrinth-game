@@ -2,6 +2,8 @@
 #define __TREASURE_H
 
 #include "baseEntity.h"
+#include <iostream>
+using namespace std;
 
 class Treasure : public BaseEntity
 {
@@ -12,6 +14,7 @@ public:
 	double getPercentStat() const;
 	virtual Treasure* clone() const;
 	void levelUp() override;
+	virtual string getName() const;
 };
 
 #endif

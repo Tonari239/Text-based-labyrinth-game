@@ -51,7 +51,7 @@ void Map::positionTreasures(int count)
 		rows[currentIndex] = row;
 		columns[currentIndex] = column;
 		mGrid.setCellValue(row, column, 'T');
-		Treasure treasure = GameUtilities::generateTreasure(mLevel);
+		Treasure* treasure = GameUtilities::generateTreasure(mLevel);
 		mTreasures.addTreasure(treasure);
 		--count;
 	}
@@ -121,4 +121,33 @@ void Map::setEntityOnMap(int x, int y, char c)
 void Map::markCellAsVisited(int x, int y)
 {
 	mGrid.markCellAsVisited(x, y);
+}
+
+const Cell& Map::getCell(int x, int y) const
+{
+	return mGrid.getCell(x, y);
+}
+
+int Map::getMonsterIndexByCoordinates(int x, int y) const
+{
+	for (int i = 0; i < mMonstersCount; i++)
+	{
+		if (mMonsters[i].getXCoordinate() == x && mMonsters[i].getYCoordinate() == y)
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+int Map::getTreasureIndexByCoordinates(int x,int y) const
+{
+	for (int i = 0; i < mMonstersCount; i++)
+	{
+		if (mTreasures[i].getXCoordinate() == x && mTreasures[i].getYCoordinate() == y)
+		{
+			return i;
+		}
+	}
+	return -1;
 }

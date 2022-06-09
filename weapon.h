@@ -7,6 +7,7 @@ class Weapon :virtual public Treasure
 {
 public:
 	Weapon(int level=1,double percentStat = 10);
+	string getName() const override;
 };
 
 

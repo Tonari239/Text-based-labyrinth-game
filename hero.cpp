@@ -67,53 +67,57 @@ void Hero::distributeStats()
 	setHealth(getHealth() + health);
 }
 
-void Battle(Hero& hero,Monster& monster)
+bool Hero::battle(Monster& monster)
 {
-	double initialHealth = hero.getHealth();
-	double initialMana = hero.getMana();
+	double initialHealth = getHealth();
+	double initialMana = getMana();
 	int heroAttacksFirst = Utilities::generateRandom(); // 1 ->	hero, 0 -> dragon
 	if (heroAttacksFirst)
 	{
-		while (hero.getHealth()>0 && monster.getHealth() > 0)
+		while (getHealth()>0 && monster.getHealth() > 0)
 		{
-			hero.attack(monster);
-			monster.attack(hero);
+			attack(monster);
+			monster.attack(*this);
 		}
 	}
 	else
 	{
-		while (hero.getHealth() > 0 && monster.getHealth() > 0)
+		while (getHealth() > 0 && monster.getHealth() > 0)
 		{
-			monster.attack(hero);
-			hero.attack(monster);
+			monster.attack(*this);
+			attack(monster);
 		}
 	}
 	
 	if (monster.getHealth() <= 0)
 	{
 		cout << "Victory!" <<endl;
-		double healthToRestore = hero.getHealth() + initialHealth * 1 / 2;
-		if (healthToRestore >= initialHealth)
+		double restoredHealth = getHealth() + initialHealth * 1.0 / 2;
+		if (restoredHealth >= initialHealth)
 		{
-			hero.setHealth(initialHealth);
+			setHealth(initialHealth);
 		}
 		else
 		{
-			hero.restoreStatsAfterBattle(initialHealth, initialMana, 1.0 / 2);
+			restoreStatsAfterBattle(initialHealth, initialMana, 1.0 / 2);
 		}
-
+		return 1;
 	}
-	else if (hero.getHealth()<=0)
+	else 
 	{
 		cout << "You lost! :("<<endl;
-		throw - 1; // will catch this in main and end program
+		throw - 1; // will catch this in game engine
 	}
 	
 }
 
 int Hero::chooseAttackMethod() const
 {
-	return 0;
+	cout << "Choose your attack type!" << endl;
+	cout << " \'0\' for physical attack or \'1\' for spell" << endl;
+	char choice;
+	cin >> choice;
+	return choice;
 }
 
 const Inventory& Hero::getInventory() const
@@ -125,7 +129,10 @@ const Inventory& Hero::getInventory() const
 
 void Hero::restoreStatsAfterBattle(double initialHealth, double initialMana, double percentToRecover)
 {
-
+	double restoredHealth = getHealth() + initialHealth * percentToRecover;
+	double restoredMana = getMana() + initialMana * percentToRecover;
+	setHealth(restoredHealth);
+	setMana(restoredMana);
 }
 
 int Hero::getCurrentLevel() const
@@ -137,4 +144,36 @@ void Hero::setCoordinates(int x, int y)
 {
 	mXCoordinate = x;
 	mYCoordinate = y;
+}
+
+void Hero::takeTreasure(const Treasure& treasure)
+{
+	cout << "You found a " << treasure.getName() << " .Would you like to keep it?: y/n" << endl;
+	char c;
+	cin >> c;
+	while (c!='y' && c!='n')
+	{
+		cout << "Invalid input!Try again." << endl;
+		cin >> c;
+	}
+	if (c == 'n')
+	{
+		return;
+	}
+	else
+	{
+		if (treasure.getName() == "spell")
+		{
+			mInventory.setSpell(Spell(treasure));
+		}
+		else if (treasure.getName() == "weapon")
+		{
+			mInventory.setWeapon(treasure)
+		}
+		else
+		{
+			getInventory().setArmor(treasure);
+		}
+	}
+
 }

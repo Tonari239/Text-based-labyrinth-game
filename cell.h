@@ -15,6 +15,7 @@ public:
 	void markVisited();
 	void setSymbol(char c);
 	void print() const;
+	char getSymbol() const;
 };
 
 #endif

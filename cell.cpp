@@ -26,6 +26,11 @@ void Cell::markVisited()
 	mHasBeenVisited = true;
 }
 
+char Cell::getSymbol() const
+{
+	return mSymbol;
+}
+
 void Cell::setSymbol(char c)
 {
 	if (c != 'T' && c != '#' && c != '.' && c != 'M' && c != '@' && c!='?')
