@@ -26,7 +26,7 @@ public:
 	void moveHero(string direction);
 	void generateLevel();
 	static void updatePreviousMapInfo(Map currentMap);
-
+	void visualizeMap() const;
 };
 
 #endif

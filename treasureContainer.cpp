@@ -79,11 +79,12 @@ TreasureContainer::TreasureContainer(TreasureContainer&& other) noexcept
 {
 	mCount = other.mCount;
 	mCapacity = other.mCapacity;
-	mData = other.mData;
 	for (int i = 0; i < mCount; i++)
 	{
+		mData[i] = other.mData[i];
 		other.mData[i] = nullptr;
 	}
+	mData = other.mData;
 	other.mData = nullptr;
 }
 
@@ -94,11 +95,12 @@ TreasureContainer& TreasureContainer::operator=(TreasureContainer&& other) noexc
 		free(); 
 		mCount = other.mCount;
 		mCapacity = other.mCapacity;
-		mData = other.mData;
 		for (int i = 0; i < mCount; i++)
 		{
+			mData[i] = other.mData[i];
 			other.mData[i] = nullptr;
 		}
+		mData = other.mData;
 		other.mData = nullptr;
 	}
 	return *this;
@@ -112,11 +114,11 @@ void TreasureContainer::addTreasure(const Treasure& T)
 	mData[mCount++] = T.clone();
 }
 
-void TreasureContainer::addTreasure(Treasure* T)
-{
-	resizeAccordingly();
-	mData[mCount++] = T;
-}
+//void TreasureContainer::addTreasure(const Treasure* T)
+//{
+//	resizeAccordingly();
+//	mData[mCount++] = T->clone();
+//}
 
 void TreasureContainer::removeIndex(int index)
 {
@@ -133,7 +135,7 @@ void TreasureContainer::removeIndex(int index)
 
 const Treasure& TreasureContainer::getAt(int index) const
 {
-	return (*this)[index];
+	return *(mData[index]);
 }
 
 //sussy, nz dali raboti as expected, fuck around to find out

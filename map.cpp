@@ -31,9 +31,10 @@ Map::Map(MapInfo previousMap, MapInfo previousPreviousMap)
 
 }
 
+
 void Map::positionTreasures(int count)
 {
-	int* rows = new int[count];
+	int* rows = new int[count]; // saving the coordinates of treasures as x,y pair
 	int* columns = new int[count];
 	while (count != 0)
 	{
@@ -50,8 +51,8 @@ void Map::positionTreasures(int count)
 		int currentIndex = mTreasuresCount - count;
 		rows[currentIndex] = row;
 		columns[currentIndex] = column;
-		mGrid.setCellValue(row, column, 'T');
-		Treasure* treasure = GameUtilities::generateTreasure(mLevel);
+		setEntityOnMap(row, column, 'T');
+		Treasure treasure = GameUtilities::generateTreasure(mLevel);
 		mTreasures.addTreasure(treasure);
 		--count;
 	}
@@ -78,7 +79,7 @@ void Map::positionMonsters(int count)
 		int currentIndex = mMonstersCount - count;
 		rows[currentIndex] = row;
 		columns[currentIndex] = column;
-		mGrid.setCellValue(row, column, 'M');
+		setEntityOnMap(row, column, 'M');
 		Monster monster(mLevel);
 		mMonsters.push_back(monster);
 		--count;
@@ -150,4 +151,9 @@ int Map::getTreasureIndexByCoordinates(int x,int y) const
 		}
 	}
 	return -1;
+}
+
+void  Map::visualize() const
+{
+	mGrid.print();
 }

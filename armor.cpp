@@ -7,5 +7,5 @@ Armor::Armor(int level, double percentStat) :Treasure(level,percentStat) // weap
 
 string Armor::getName() const
 {
-	return "armor";
+	return Treasure::getName() + "armor";
 }

@@ -3,21 +3,21 @@
 
 #include <iostream>
 
-Treasure* GameUtilities::generateTreasure(int level)
+Treasure GameUtilities::generateTreasure(int level)
 {
 	srand(time(NULL));
 	int num = rand() % 3;
 	if (num==0)
 	{
-		return new Spell(level);
+		return Spell(level);
 	
 	}
 	else if (num==1)
 	{
-		return new Armor(level);
+		return Armor(level);
 	}
 	else
 	{
-		return new Weapon(level);
+		return Weapon(level);
 	}
 }

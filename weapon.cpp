@@ -7,5 +7,5 @@ Weapon::Weapon(int level, double percentStat) : Treasure(level,percentStat)
 
 string Weapon::getName() const
 {
-	return "weapon";
+	return Treasure::getName() + "weapon";
 }

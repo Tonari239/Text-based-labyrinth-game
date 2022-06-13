@@ -6,7 +6,7 @@
 class Armor :virtual public Treasure
 {
 public:
-	Armor(int level = 1, double percentStat = 10);
+	Armor(int level = 1, double percentStat = 20);
 	string getName() const override;
 };
 

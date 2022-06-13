@@ -31,12 +31,12 @@ void Inventory::setWeapon(const Weapon& weapon)
 	mWeapon = weapon;
 }
 
-Inventory::Inventory(Weapon weapon, Spell spell) : mWeapon(weapon), mSpell(spell)
+Inventory::Inventory(Weapon weapon, Spell spell) : mWeapon(weapon), mSpell(spell), mArmor(1,0)
 {
-	setArmor(Armor(0));
+	
 }
 
-Inventory::Inventory(Weapon weapon, Spell spell, Armor armor)
+Inventory::Inventory(Weapon weapon, Spell spell, Armor armor) :mWeapon(weapon), mSpell(spell),mArmor(armor)
 {
 
 }

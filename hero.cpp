@@ -125,7 +125,10 @@ const Inventory& Hero::getInventory() const
 	return mInventory;
 }
 
-
+Hero::Hero(Race race) :mInventory(Weapon(),Spell()), mRace(race), mCurrentLevel(1)
+{
+	initializeRaceStats();
+}
 
 void Hero::restoreStatsAfterBattle(double initialHealth, double initialMana, double percentToRecover)
 {
@@ -164,15 +167,16 @@ void Hero::takeTreasure(const Treasure& treasure)
 	{
 		if (treasure.getName() == "spell")
 		{
-			mInventory.setSpell(Spell(treasure));
+			
+			mInventory.setSpell(Spell(mCurrentLevel,treasure.getPercentStat()));
 		}
 		else if (treasure.getName() == "weapon")
 		{
-			mInventory.setWeapon(treasure)
+			mInventory.setWeapon(Weapon(mCurrentLevel, treasure.getPercentStat()));
 		}
 		else
 		{
-			getInventory().setArmor(treasure);
+			mInventory.setArmor(Armor(mCurrentLevel, treasure.getPercentStat()));
 		}
 	}
 

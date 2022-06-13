@@ -1,11 +1,11 @@
 #include "gameEngine.h"
 
-
-MapInfo GameEngine::previousPreviousMapInfo = {1,2,2,10,10}; // first base level
+//format for map info:  <level> <monsters count> <treasures count> <rows> <columns>
+MapInfo GameEngine::previousPreviousMapInfo = {1,2,2,10,10}; //  first base level
 MapInfo GameEngine::previousMapInfo = {2,3,2,15,10}; // second base level
 
 
-GameEngine::GameEngine(const Hero& hero) : mHero(hero)
+GameEngine::GameEngine(const Hero& hero) : mHero(hero), mMap(previousPreviousMapInfo)
 {
 	
 }
@@ -27,7 +27,7 @@ void  GameEngine::positionHeroAtStart()
 	int xCoordinate = 1;
 	int yCoordinate = 1;
 	mHero.setCoordinates(1, 1);
-	mMap.setEntityOnMap(1, 1, '@');
+	mMap.setEntityOnMap(1, 1, 'H'); //Symbol of hero will be H
 }
 
 void  GameEngine::moveHero(string direction)
@@ -35,27 +35,24 @@ void  GameEngine::moveHero(string direction)
 	if (direction != "left" && direction != "right" && direction != "up" && direction != "down")
 	{
 		cout <<"Invalid direction! No action taken.";
+		return;
 	}
+	mMap.markCellAsVisited(mHero.getXCoordinate(), mHero.getYCoordinate());
 	if (direction == "left")
-	{
-		actOnDirection(mHero.getXCoordinate() - 1, mHero.getYCoordinate());
-	}
-	else if (direction == "right")
-	{
-		actOnDirection(mHero.getXCoordinate() + 1, mHero.getYCoordinate());
-	}
-	else if (direction == "up")
 	{
 		actOnDirection(mHero.getXCoordinate(), mHero.getYCoordinate()-1);
 	}
+	else if (direction == "right")
+	{
+		actOnDirection(mHero.getXCoordinate(), mHero.getYCoordinate()+1);
+	}
+	else if (direction == "up")
+	{
+		actOnDirection(mHero.getXCoordinate()-1, mHero.getYCoordinate());
+	}
 	else if (direction == "down")
 	{
-		actOnDirection(mHero.getXCoordinate(), mHero.getYCoordinate() + 1);
-	}
-	else
-	{
-		cout << "Invalid direction!";
-		return;
+		actOnDirection(mHero.getXCoordinate()+1, mHero.getYCoordinate());
 	}
 }
 
@@ -85,7 +82,7 @@ void GameEngine::determineAction(int x,int y)
 	}
 	else if (destinationIsExit(x, y))
 	{
-
+		throw 1; // will catch in main and generate new level
 	}
 }
 
@@ -120,7 +117,7 @@ void GameEngine::generateMap()
 {
 	if (mHero.getCurrentLevel() == 1)
 	{
-		mMap = Map(previousPreviousMapInfo);
+		return;
 	}
 	else if (mHero.getCurrentLevel() == 2)
 	{
@@ -129,6 +126,7 @@ void GameEngine::generateMap()
 	else
 	{
 		mMap = Map(previousPreviousMapInfo, previousMapInfo);
+		updatePreviousMapInfo(mMap);
 	}
 }
 
@@ -138,5 +136,12 @@ void GameEngine::actOnDirection(int nextXCoordinate,int nextYCoordinate)
 	{
 		mHero.setCoordinates(nextXCoordinate, nextYCoordinate);
 		determineAction(mHero.getXCoordinate(), mHero.getYCoordinate());
+		mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
 	}
+}
+
+void GameEngine::visualizeMap() const
+{
+	system("CLS");
+	mMap.visualize();
 }

@@ -21,8 +21,8 @@ public:
 	Grid(const Grid& other);
 	Grid& operator=(const Grid& other);
 
-	Grid(Grid&& other) noexcept;
-	Grid& operator=(Grid&& other) noexcept;
+	//Grid(Grid&& other) noexcept;
+	//Grid& operator=(Grid&& other) noexcept;
 
 	void setCellValue(int row, int col, char value);
 	const Cell& getCell(int row, int col) const;

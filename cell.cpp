@@ -24,6 +24,7 @@ bool Cell::hasBeenVisited() const
 void Cell::markVisited()
 {
 	mHasBeenVisited = true;
+	mSymbol = '.'; // we've discovered what's on the map so we put that symbol
 }
 
 char Cell::getSymbol() const
@@ -33,7 +34,7 @@ char Cell::getSymbol() const
 
 void Cell::setSymbol(char c)
 {
-	if (c != 'T' && c != '#' && c != '.' && c != 'M' && c != '@' && c!='?')
+	if (c != 'T' && c != '#' && c != '.' && c != 'M' && c != 'H' && c!='?')
 	{
 		throw "Invalid symbol!";
 	}

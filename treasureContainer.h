@@ -28,7 +28,7 @@ public:
 
 
 	void addTreasure(const Treasure& T);
-	void addTreasure(Treasure* T);
+	/*void addTreasure(const Treasure* T);*/
 	void removeIndex(int index);
 
 	const Treasure& getAt(int index) const;

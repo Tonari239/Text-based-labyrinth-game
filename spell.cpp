@@ -15,5 +15,5 @@ Spell::Spell(int level, double percentStat, double manaCost)
 
 string Spell::getName() const
 {
-	return "spell";
+	return Treasure::getName() + "spell";
 }

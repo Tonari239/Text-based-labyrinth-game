@@ -32,7 +32,7 @@ private:
 	void distributeStats();
 protected:
 public:
-
+	Hero(Race race);
 	bool battle(Monster& monster);
 	void attack(Monster& monster);
 	const Inventory& getInventory() const;

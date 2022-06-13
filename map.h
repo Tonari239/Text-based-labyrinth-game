@@ -18,7 +18,7 @@ class Map
 
 	void positionEntities();
 public:
-	Map() = default;
+	Map();
 	Map(MapInfo initialMap);
 	Map(MapInfo previousMap, MapInfo previousPreviousMap);
 	Map(int monstersCount, int treasuresCount, int level,int rows, int cols);
@@ -37,6 +37,7 @@ public:
 
 	int getMonsterIndexByCoordinates(int x, int y) const;
 	int getTreasureIndexByCoordinates(int x,int y) const;
+	void visualize() const;
 	friend class GameEngine;
 };
 

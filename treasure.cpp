@@ -17,8 +17,13 @@ void Treasure::levelUp()
 
 Treasure::Treasure(int level, double percentStat) :mPercentStat(percentStat)
 {
-	for (int i = 0; i < level; i++)
+	for (int i = 1; i < level; i++)
 	{
 		levelUp();
 	}
+}
+
+string Treasure::getName() const
+{
+	return "treasure type:";
 }

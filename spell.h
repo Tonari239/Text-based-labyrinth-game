@@ -7,7 +7,7 @@ class Spell :virtual public Treasure
 {
 	double mManaCost;
 public:
-	Spell(int level = 1, double percentStat=10, double manaCost=5);
+	Spell(int level = 1, double percentStat=20, double manaCost=5);
 	double getManaCost() const;
 	string getName() const override;
 };
