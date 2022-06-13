@@ -40,6 +40,10 @@ public:
 	int getCurrentLevel() const;
 	void setCoordinates(int x, int y);
 	void takeTreasure(const Treasure& treasure);
+
+	friend ostream& operator<<(ostream& out, const Hero& hero);
+	friend istream& operator>>(istream& out,Hero& hero);
+	
 };
 
 

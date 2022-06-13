@@ -7,13 +7,13 @@ MapInfo GameEngine::previousMapInfo = {2,3,2,15,10}; // second base level
 
 GameEngine::GameEngine(const Hero& hero) : mHero(hero), mMap(previousPreviousMapInfo)
 {
-	
+	generateLevel();
 }
 
 void GameEngine::generateLevel()
 {
-	positionHeroAtStart();
 	generateMap();
+	positionHeroAtStart();
 }
 
 void GameEngine::updatePreviousMapInfo(Map currentMap)
@@ -37,22 +37,46 @@ void  GameEngine::moveHero(string direction)
 		cout <<"Invalid direction! No action taken.";
 		return;
 	}
-	mMap.markCellAsVisited(mHero.getXCoordinate(), mHero.getYCoordinate());
+	int xOldCoordinate = mHero.getXCoordinate();
+	int yOldCoordinate = mHero.getYCoordinate();
+	
+	bool destIsWall;
 	if (direction == "left")
 	{
-		actOnDirection(mHero.getXCoordinate(), mHero.getYCoordinate()-1);
+		destIsWall = destinationIsWall(xOldCoordinate, yOldCoordinate - 1);
+		if (!destIsWall)
+		{
+			actOnDirection(xOldCoordinate, yOldCoordinate - 1);
+			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
+		}
+		
 	}
 	else if (direction == "right")
 	{
-		actOnDirection(mHero.getXCoordinate(), mHero.getYCoordinate()+1);
+		destIsWall = destinationIsWall(xOldCoordinate, yOldCoordinate +1);
+		if (!destIsWall)
+		{
+			actOnDirection(xOldCoordinate, yOldCoordinate + 1);
+			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
+		}
 	}
 	else if (direction == "up")
 	{
-		actOnDirection(mHero.getXCoordinate()-1, mHero.getYCoordinate());
+		destIsWall = destinationIsWall(xOldCoordinate-1, yOldCoordinate);
+		if (!destIsWall)
+		{
+			actOnDirection(xOldCoordinate-1, yOldCoordinate);
+			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
+		}
 	}
 	else if (direction == "down")
 	{
-		actOnDirection(mHero.getXCoordinate()+1, mHero.getYCoordinate());
+		destIsWall = destinationIsWall(xOldCoordinate, yOldCoordinate - 1);
+		if (!destIsWall)
+		{
+			actOnDirection(xOldCoordinate+1, yOldCoordinate);
+			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
+		}
 	}
 }
 
@@ -82,7 +106,8 @@ void GameEngine::determineAction(int x,int y)
 	}
 	else if (destinationIsExit(x, y))
 	{
-		throw 1; // will catch in main and generate new level
+		mHero.levelUp();
+		generateLevel();
 	}
 }
 
@@ -132,12 +157,10 @@ void GameEngine::generateMap()
 
 void GameEngine::actOnDirection(int nextXCoordinate,int nextYCoordinate)
 {
-	if (!destinationIsWall(nextXCoordinate, nextYCoordinate))
-	{
-		mHero.setCoordinates(nextXCoordinate, nextYCoordinate);
-		determineAction(mHero.getXCoordinate(), mHero.getYCoordinate());
-		mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
-	}
+	mHero.setCoordinates(nextXCoordinate, nextYCoordinate);
+	determineAction(mHero.getXCoordinate(), mHero.getYCoordinate());
+	mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
+	
 }
 
 void GameEngine::visualizeMap() const

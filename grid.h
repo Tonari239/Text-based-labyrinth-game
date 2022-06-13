@@ -5,6 +5,7 @@
 #include "cell.h"
 
 using namespace std;
+
 class Grid
 {
 	int mRows;
@@ -23,7 +24,7 @@ public:
 
 	//Grid(Grid&& other) noexcept;
 	//Grid& operator=(Grid&& other) noexcept;
-
+	
 	void setCellValue(int row, int col, char value);
 	const Cell& getCell(int row, int col) const;
 	void markCellAsVisited(int row, int col);
@@ -31,6 +32,9 @@ public:
 
 	int getRows() const;
 	int getCols() const;
+
+	friend ostream& operator<<(ostream& out, const Grid& grid);
+	friend istream& operator>>(istream& out, Grid& grid);
 };
 
 

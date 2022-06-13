@@ -6,6 +6,7 @@
 #include "monster.h"
 #include "mapInfo.h"
 #include "gameUtilities.h"
+
 class Map
 {
 	

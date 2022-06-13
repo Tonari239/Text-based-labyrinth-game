@@ -102,7 +102,7 @@ Grid& Grid::operator=(const Grid& other)
 {
 	if (this != &other)
 	{
-		free();
+		//free();
 		copyFrom(other);
 	}
 	return *this;
@@ -142,4 +142,31 @@ Grid& Grid::operator=(const Grid& other)
 void Grid::markCellAsVisited(int row, int col)
 {
 	mGrid[row][col].markVisited();
+}
+
+ostream& operator<<(ostream& out, const Grid& grid)
+{
+	out << grid.mRows << " " << grid.mCols;
+	for (int i = 0; i < grid.mRows; i++)
+	{
+		for (int j = 0; j < grid.mCols; j++)
+		{
+			out << grid.mGrid[i][j] << endl;
+		}
+	} 
+	return out;
+}
+
+istream& operator>>(istream& in, Grid& grid)
+{
+	in >> grid.mRows;
+	in >> grid.mCols;
+	for (int i = 0; i < grid.mRows; i++)
+	{
+		for (int j = 0; j < grid.mCols; j++)
+		{
+			in >> grid.mGrid[i][j];
+		}
+	}
+	return in;
 }

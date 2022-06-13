@@ -1,9 +1,4 @@
-#include <iostream>
-
-
 #include "cell.h"
-using namespace std;
-
 Cell::Cell()
 {
 	mHasBeenVisited = false;
@@ -44,4 +39,29 @@ void Cell::setSymbol(char c)
 void Cell::print() const
 {
 	cout << mSymbol;
+}
+
+ostream& operator<<(ostream& out, const Cell& cell)
+{
+	out << cell.getSymbol();
+	return out;
+}
+
+istream& operator>>(istream& in, Cell& cell)
+{
+	in >> cell.mSymbol;
+	if (cell.mSymbol == '?')
+	{
+		cell.mHasBeenVisited = false;
+	}
+	else if (cell.mSymbol == '.')
+	{
+		cell.mHasBeenVisited = true;
+	}
+	return in;
+}
+
+void Cell::setVisitedStatus(bool status)
+{
+	mHasBeenVisited = status;
 }
