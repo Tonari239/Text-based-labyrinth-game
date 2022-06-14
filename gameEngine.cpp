@@ -12,7 +12,10 @@ GameEngine::GameEngine(const Hero& hero) : mHero(hero), mMap(previousPreviousMap
 
 void GameEngine::generateLevel()
 {
-	generateMap();
+	if (mHero.getCurrentLevel() != 1)
+	{
+		generateMap();
+	}
 	positionHeroAtStart();
 }
 
@@ -26,61 +29,54 @@ void  GameEngine::positionHeroAtStart()
 {
 	int xCoordinate = 1;
 	int yCoordinate = 1;
-	mHero.setCoordinates(1, 1);
-	mMap.setEntityOnMap(1, 1, 'H'); //Symbol of hero will be H
+	mHero.setCoordinates(xCoordinate, yCoordinate);
+	mMap.setEntityOnMap(xCoordinate, yCoordinate, 'H'); //Symbol of hero will be H
 }
 
 void  GameEngine::moveHero(string direction)
 {
+	int initialLevel = mHero.getCurrentLevel();
+	bool isNotLevelledUp=true;
 	if (direction != "left" && direction != "right" && direction != "up" && direction != "down")
 	{
-		cout <<"Invalid direction! No action taken.";
+		cout <<"Invalid direction! No actOnDirectionion taken.";
 		return;
 	}
 	int xOldCoordinate = mHero.getXCoordinate();
 	int yOldCoordinate = mHero.getYCoordinate();
-	
-	bool destIsWall;
 	if (direction == "left")
 	{
-		destIsWall = destinationIsWall(xOldCoordinate, yOldCoordinate - 1);
-		if (!destIsWall)
-		{
-			actOnDirection(xOldCoordinate, yOldCoordinate - 1);
-			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
-		}
-		
+		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate, yOldCoordinate - 1, initialLevel);
 	}
 	else if (direction == "right")
 	{
-		destIsWall = destinationIsWall(xOldCoordinate, yOldCoordinate +1);
-		if (!destIsWall)
-		{
-			actOnDirection(xOldCoordinate, yOldCoordinate + 1);
-			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
-		}
+		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate, yOldCoordinate+1, initialLevel);
 	}
 	else if (direction == "up")
 	{
-		destIsWall = destinationIsWall(xOldCoordinate-1, yOldCoordinate);
-		if (!destIsWall)
-		{
-			actOnDirection(xOldCoordinate-1, yOldCoordinate);
-			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
-		}
+		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate - 1, yOldCoordinate, initialLevel);
 	}
 	else if (direction == "down")
 	{
-		destIsWall = destinationIsWall(xOldCoordinate+1, yOldCoordinate);
-		if (!destIsWall)
+		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate + 1, yOldCoordinate, initialLevel);
+	} 
+}
+
+void GameEngine::actOnDirection(int xOldCoordinate, int yOldCoordinate, int xNewCoordinate, int yNewCoordinate,int initialLevel)
+{
+	bool destIsWall = destinationIsWall(xNewCoordinate,yNewCoordinate);
+	if (!destIsWall)
+	{
+		act(xNewCoordinate,yNewCoordinate);
+		bool isNotLevelledUp = mHero.getCurrentLevel() == initialLevel;
+		if (isNotLevelledUp)
 		{
-			actOnDirection(xOldCoordinate+1, yOldCoordinate);
 			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
 		}
 	}
 }
 
-void GameEngine::determineAction(int x,int y)
+void GameEngine::determineactOnDirectionion(int x,int y)
 {
 	if (destinationIsTreasure(x, y))
 	{
@@ -108,7 +104,6 @@ void GameEngine::determineAction(int x,int y)
 	else if (destinationIsExit(x, y))
 	{
 		mHero.levelUp();
-		//set current cell to symbol or whatever
 		generateLevel();
 	}
 }
@@ -142,11 +137,12 @@ bool GameEngine::destinationIsExit(int x, int y) const
 
 void GameEngine::generateMap()
 {
-	if (mHero.getCurrentLevel() == 1)
+	int level = mHero.getCurrentLevel();
+	if (level == 1)
 	{
 		return;
 	}
-	else if (mHero.getCurrentLevel() == 2)
+	else if (level == 2)
 	{
 		mMap = Map(previousMapInfo);
 	}
@@ -157,11 +153,19 @@ void GameEngine::generateMap()
 	}
 }
 
-void GameEngine::actOnDirection(int nextXCoordinate,int nextYCoordinate)
+void GameEngine::act(int nextXCoordinate,int nextYCoordinate)
 {
+	int currentLevel = mHero.getCurrentLevel();
 	mHero.setCoordinates(nextXCoordinate, nextYCoordinate);
-	determineAction(mHero.getXCoordinate(), mHero.getYCoordinate());
-	mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
+	determineactOnDirectionion(mHero.getXCoordinate(), mHero.getYCoordinate());
+	int newLevel = mHero.getCurrentLevel();
+	if (currentLevel == newLevel)
+	{
+		mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
+	}
+	
+	
+	
 	
 }
 

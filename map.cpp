@@ -5,6 +5,8 @@ void Map::positionEntities()
 {
 	positionTreasures(mTreasuresCount);
 	positionMonsters(mMonstersCount);
+	this->visualize();
+	cout << endl;
 }
 
 Map::Map(int monstersCount, int treasuresCount, int level,int rows,int cols) 
@@ -36,25 +38,26 @@ void Map::positionTreasures(int count)
 {
 	int* rows = new int[count]; // saving the coordinates of treasures as x,y pair
 	int* columns = new int[count];
-	while (count != 0)
+	for (int i = count; i > 0; i--)
 	{
-		int row=0;
-		int column=0;
+		int row = 0;
+		int column = 0;
 
-		do 
-		{ // checkni si tam kak da go garantirash che she e v range-a
+		do
+		{ 
 			srand(time(NULL));
-			row = 1+rand() % (mGrid.getRows()-1);
-			column =1+ rand() % (mGrid.getCols()-1);
+			row = 1 + rand() % (mGrid.getRows() - 1);
+			column = 1 + rand() % (mGrid.getCols() - 1);
 		} while (mGrid.getCell(row, column).isOccupied());
 
 		int currentIndex = mTreasuresCount - count;
 		rows[currentIndex] = row;
 		columns[currentIndex] = column;
 		setEntityOnMap(row, column, 'T');
-		mTreasures.addTreasure(*(GameUtilities::generateTreasure(row,column,mLevel)));
-		--count;
+		mTreasures.addTreasure(*(GameUtilities::generateTreasure(row, column, mLevel)));
+		
 	}
+	
 	delete[] rows;
 	delete[] columns;
 }
@@ -63,25 +66,26 @@ void Map::positionMonsters(int count)
 {
 	int* rows = new int[count];
 	int* columns = new int[count];
-	while (count != 0)
+	for (int i = count; i > 0; i--)
 	{
-		int row = 0;
-		int column = 0;
-
-		do
 		{
-			srand(time(NULL));
-			row = 1 + rand() % (mGrid.getRows() - 1);
-			column = 1 + rand() % (mGrid.getCols() - 1);
-		} while (mGrid.getCell(row, column).isOccupied());
+			int row = 0;
+			int column = 0;
 
-		int currentIndex = mMonstersCount - count;
-		rows[currentIndex] = row;
-		columns[currentIndex] = column;
-		setEntityOnMap(row, column, 'M');
-		Monster monster(row,column,mLevel);
-		mMonsters.push_back(monster);
-		--count;
+			do
+			{
+				srand(time(NULL));
+				row = 1 + rand() % (mGrid.getRows() - 1);
+				column = 1 + rand() % (mGrid.getCols() - 1);
+			} while (mGrid.getCell(row, column).isOccupied());
+
+			int currentIndex = mMonstersCount - i;
+			rows[currentIndex] = row;
+			columns[currentIndex] = column;
+			setEntityOnMap(row, column, 'M');
+			Monster monster(row, column, mLevel);
+			mMonsters.push_back(monster);
+		}
 	}
 	delete[] rows;
 	delete[] columns;

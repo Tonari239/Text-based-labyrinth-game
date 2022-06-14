@@ -2,7 +2,7 @@
 Cell::Cell()
 {
 	mHasBeenVisited = false;
-	mSymbol = '#';
+	mSymbol = '?';
 }
 
 

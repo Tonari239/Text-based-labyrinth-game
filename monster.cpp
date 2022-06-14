@@ -30,13 +30,25 @@ void Monster::attack(Hero& hero)
 	if (canCastASpell)
 	{
 		bool castsASpell = Utilities::generateRandom();
-		damageToTake = castsASpell ? castSpell(getSpell()) : physicalAttack(nullptr);
+		if (castsASpell)
+		{
+			damageToTake = castSpell(getSpell());
+			cout << "Monster cast a spell and inflicted ";
+		}
+		else
+		{
+			damageToTake = physicalAttack(nullptr);
+			cout <<"Monster attacked physically and inflicted ";
+		}
+		
 	}
 	else
 	{
 		damageToTake = physicalAttack(nullptr);
+		cout << "Monster attacked physically and inflicted ";
 	}
-	hero.takeDamage(damageToTake, hero.getInventory().getArmor().getPercentStat());
+	double takenDamage = hero.takeDamage(damageToTake, hero.getInventory().getArmor().getPercentStat());
+	cout << takenDamage << " damage." << endl;
 }
 
 void Monster::levelUp()

@@ -52,7 +52,6 @@ TreasureContainer::TreasureContainer(int capacity) :mCapacity(capacity)
 {
 	mCount = 0;
 	mData = new Treasure * [mCapacity];
-	
 }
 
 TreasureContainer::TreasureContainer(const TreasureContainer& other)
@@ -76,37 +75,6 @@ TreasureContainer& TreasureContainer::operator=(const TreasureContainer& other)
 }
 
 
-TreasureContainer::TreasureContainer(TreasureContainer&& other) noexcept
-{
-	mCount = other.mCount;
-	mCapacity = other.mCapacity;
-	for (int i = 0; i < mCount; i++)
-	{
-		mData[i] = other.mData[i];
-		other.mData[i] = nullptr;
-	}
-	mData = other.mData;
-	other.mData = nullptr;
-}
-
-TreasureContainer& TreasureContainer::operator=(TreasureContainer&& other) noexcept
-{
-	if (this != &other)
-	{
-		free(); 
-		mCount = other.mCount;
-		mCapacity = other.mCapacity;
-		for (int i = 0; i < mCount; i++)
-		{
-			mData[i] = other.mData[i];
-			other.mData[i] = nullptr;
-		}
-		mData = other.mData;
-		other.mData = nullptr;
-	}
-	return *this;
-}
-
 
 
 void TreasureContainer::addTreasure(const Treasure& T)
@@ -123,7 +91,7 @@ void TreasureContainer::removeIndex(int index)
 	delete mData[index];
 	for (int i = index; i < mCount; i++)
 	{
-		mData[index] = mData[index + 1];
+		mData[i] = mData[i + 1];
 	}
 	--mCount;
 	resizeAccordingly();

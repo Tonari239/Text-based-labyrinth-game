@@ -23,9 +23,6 @@ public:
 	TreasureContainer& operator=(const TreasureContainer& other);
 
 
-	TreasureContainer(TreasureContainer&& other) noexcept;
-	TreasureContainer& operator=(TreasureContainer&& other) noexcept;
-
 
 	void addTreasure(const Treasure& T);
 	void removeIndex(int index);

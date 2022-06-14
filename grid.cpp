@@ -21,11 +21,15 @@ void Grid::populateGrid()
 		{
 			bool isBorder = (i == 0 || i == mRows - 1 || j == 0 || j == mCols - 1);
 			bool isExit = (i == mRows - 2 && j == mCols - 1);
-			if (!isBorder || isExit) // we set question marks, because it is yet unexplored
+			if (isBorder && !isExit) // we set question marks, because it is yet unexplored
 			{
-				setCellValue(i, j, '?'); 
+				setCellValue(i, j, '#'); 
+				
 			}
+			/*cout << mGrid[i][j];*/
 		}
+		/*cout << endl;*/
+		
 	}
 }
 
@@ -62,8 +66,8 @@ void Grid::free()
 
 void Grid::copyFrom(const Grid& other)
 {
-	mRows = other.getRows();
-	mCols = other.getCols();
+	mRows = other.mRows;
+	mCols = other.mCols;
 
 	mGrid = new Cell*[mRows];
 	for (int i = 0; i < mRows; i++)
@@ -102,42 +106,11 @@ Grid& Grid::operator=(const Grid& other)
 {
 	if (this != &other)
 	{
-		//free();
+		free(); // tova beshe zakomentirano for some reason
 		copyFrom(other);
 	}
 	return *this;
 }
-
-//Grid::Grid(Grid&& other) noexcept
-//{
-//	mRows = other.getRows();
-//	mCols = other.getCols();
-//	for (int i = 0; i < mRows; i++)
-//	{
-//		mGrid[i] = other.mGrid[i];
-//		other.mGrid[i] = nullptr;
-//	}
-//	mGrid = other.mGrid;
-//	other.mGrid = nullptr;
-//}
-
-//Grid& Grid::operator=(Grid&& other) noexcept
-//{
-//	if (this != &other)
-//	{
-//		free();
-//		mRows = other.getRows();
-//		mCols = other.getCols();
-//		for (int i = 0; i < mRows; i++)
-//		{
-//			mGrid[i] = other.mGrid[i];
-//			other.mGrid[i] = nullptr;
-//		}
-//		mGrid = other.mGrid;
-//		other.mGrid = nullptr;
-//	}
-//	return *this;
-//}
 
 void Grid::markCellAsVisited(int row, int col)
 {

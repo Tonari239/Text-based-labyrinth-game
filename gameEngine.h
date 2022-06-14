@@ -14,12 +14,12 @@ class GameEngine
 	void positionHeroAtStart();
 	void generateMap();
 	void collectTreasure(int x, int y);
-	void determineAction(int x,int y);
+	void determineactOnDirectionion(int x,int y);
 	bool destinationIsWall(int x,int y) const;
 	bool destinationIsTreasure(int x,int y) const;
 	bool destinationIsMonster(int x,int y) const;
 	bool destinationIsExit(int x,int y) const;
-	void actOnDirection(int x, int y);
+	void act(int x, int y);
 
 public:
 	GameEngine(const Hero& hero);
@@ -27,6 +27,7 @@ public:
 	void generateLevel();
 	static void updatePreviousMapInfo(Map currentMap);
 	void visualizeMap() const;
+	void actOnDirection(int xOldCoordinate, int yOldCorodinate, int xNewCoordinate, int yNewCoordinate,int initialLevel);
 };
 
 #endif

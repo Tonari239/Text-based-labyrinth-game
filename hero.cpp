@@ -37,7 +37,17 @@ void Hero::attack(Monster& monster)
 	if (canCastASpell)
 	{
 		bool castsASpell = chooseAttackMethod();
-		damageToTake = castsASpell ? castSpell(monster.getSpell()) : physicalAttack(weapon);
+		 
+		if (castsASpell)
+		{
+			damageToTake = castSpell(monster.getSpell());
+			cout << "You cast a spell and inflict ";
+		}
+		else
+		{
+			damageToTake = physicalAttack(weapon);
+			cout << "You attack physically and inflict ";
+		}
 	}
 	else
 	{
@@ -45,7 +55,8 @@ void Hero::attack(Monster& monster)
 		damageToTake = physicalAttack(weapon);
 	}
 	delete weapon;
-	monster.takeDamage(damageToTake, monster.getScaleDefensePercent()); 
+	double takenDamage = monster.takeDamage(damageToTake, monster.getScaleDefensePercent()); 
+	cout << takenDamage << " damage." << endl;
 }
 
 void Hero::levelUp()
@@ -66,39 +77,42 @@ void Hero::distributeStats()
 		cin >> power >> mana >> health;
 	}
 	setMana(getMana() + mana);
+	setSpellPower(getMana());
 	setPower(getPower() + power);
 	setHealth(getHealth() + health);
 }
 
 bool Hero::battle(Monster& monster)
 {
-	
+	system("CLS");
 	double initialHealth = getHealth();
 	double initialMana = getMana();
 	int heroAttacksFirst = Utilities::generateRandom(); // 1 ->	hero, 0 -> dragon
 	if (heroAttacksFirst)
 	{
+		
 		while (getHealth()>0 && monster.getHealth() > 0)
 		{
-			system("CLS");
+			cout << "You attack first!" << endl;
 			cout << "Your health: " << getHealth() << endl;
-			cout <<"Monster health: " <<monster.getHealth() << endl;
+			cout <<"Monster health: " <<monster.getHealth() << endl <<endl;
 			attack(monster);
 			if (monster.getHealth() <= 0)
 			{
 				break;
 			}
 			monster.attack(*this);
+			
 		}
 	}
 	else
 	{
 		
+		cout << "Monster attacks first!" << endl;
 		while (getHealth() > 0 && monster.getHealth() > 0)
 		{
-			system("CLS");
 			cout << "Your health: " << getHealth() << endl;
-			cout << "Monster health: " << monster.getHealth() << endl;
+			cout << "Monster health: " << monster.getHealth() << endl <<endl;
 			monster.attack(*this);
 			if (getHealth() <= 0)
 			{
@@ -121,7 +135,7 @@ bool Hero::battle(Monster& monster)
 		}
 		return 1;
 	}
-	else 
+	else if (mHealth<=0)
 	{
 		cout << "You lost! :("<<endl;
 		throw - 1; // will catch this in game engine
@@ -132,9 +146,14 @@ bool Hero::battle(Monster& monster)
 int Hero::chooseAttackMethod() const
 {
 	cout << "Choose your attack type!" << endl;
-	cout << " \'0\' for physical attack or \'1\' for spell" << endl;
-	char choice;
+	cout << "\'0\' for physical attack or \'1\' for spell" << endl;
+	int choice;
 	cin >> choice;
+	while (choice!=0 && choice!=1)
+	{
+		cin >> choice;
+	}
+	
 	return choice;
 }
 

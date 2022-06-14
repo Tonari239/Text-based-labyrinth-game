@@ -26,7 +26,7 @@ public:
 	void setPower(double power);
 	void setSpellPower(double spellPower);
 
-	void takeDamage(double damage, double defensePercentBonus);
+	double takeDamage(double damage, double defensePercentBonus);
 
 	double castSpell(const Spell& spell);
 	double physicalAttack(Weapon* weapon) const;

@@ -16,13 +16,15 @@ double BaseCreature::getPower() const
 	return mPower;
 }
 
-void BaseCreature::takeDamage(double damage, double defensePercentBonus)
+double BaseCreature::takeDamage(double damage, double defensePercentBonus)
 {
 	if (damage <= 0)
 	{
 		throw "Invalid operation, damage taken cannot be non-positive!";
 	}
-	mHealth -= (1-(defensePercentBonus)/100) *damage;
+	double takenDamage = (1 - (defensePercentBonus) / 100) * damage;
+	mHealth -= takenDamage;
+	return takenDamage;
 }
 
 void BaseCreature::setMana(double mana)
@@ -72,7 +74,7 @@ double BaseCreature::physicalAttack(Weapon* weapon) const
 	double damageToTake = 0;
 	if (weapon == nullptr)
 	{
-		damageToTake = getPower(); // adding the bonus
+		damageToTake = getPower(); 
 	}
 	else
 	{
