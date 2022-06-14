@@ -1,5 +1,5 @@
 #include "monster.h"
-#include "utilities.h"
+
 
 Monster::Monster(int x,int y,int level) :BaseCreature(x,y),mSpell(x,y,level)
 {
@@ -29,7 +29,8 @@ void Monster::attack(Hero& hero)
 
 	if (canCastASpell)
 	{
-		bool castsASpell = Utilities::generateRandom();
+		srand(time(NULL));
+		bool castsASpell = rand() % 2;;
 		if (castsASpell)
 		{
 			damageToTake = castSpell(getSpell());

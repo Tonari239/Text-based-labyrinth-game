@@ -5,11 +5,19 @@ using namespace std;
 
 void Grid::setCellValue(int row, int col, char value)
 {
+	if (row <0 || row >mRows || col <0 || col > mCols)
+	{
+		throw "Out of bounds!";
+	}
 	mGrid[row][col].setSymbol(value);
 }
 
 const Cell& Grid::getCell(int row, int col) const
 {
+	if (row > mRows || col > mCols || row < 0 || col < 0)
+	{
+		throw "Out of bounds!";
+	}
 	return mGrid[row][col];
 }
 
@@ -114,6 +122,10 @@ Grid& Grid::operator=(const Grid& other)
 
 void Grid::markCellAsVisited(int row, int col)
 {
+	if (row <0 || row >mRows || col <0 || col > mCols)
+	{
+		throw "Out of bounds!";
+	}
 	mGrid[row][col].markVisited();
 }
 

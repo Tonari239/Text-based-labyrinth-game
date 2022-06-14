@@ -31,6 +31,7 @@ public:
 	Treasure& operator[](int index);
 	Treasure operator[](int index) const;
 	
+	int getCount() const;
 };
 
 #endif

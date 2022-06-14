@@ -87,7 +87,14 @@ void TreasureContainer::addTreasure(const Treasure& T)
 
 void TreasureContainer::removeIndex(int index)
 {
-	
+	if (index<0 || index>mCount)
+	{
+		throw "Index out of bounds!";
+	}
+	if (mCount == 0)
+	{
+		throw "Collection is empty!";
+	}
 	delete mData[index];
 	for (int i = index; i < mCount; i++)
 	{
@@ -100,12 +107,20 @@ void TreasureContainer::removeIndex(int index)
 
 const Treasure* TreasureContainer::getAt(int index) const
 {
+	if (index < 0 || index>mCount)
+	{
+		throw "Index out of bound!";
+	}
 	return (mData[index]);
 }
 
 
 Treasure& TreasureContainer::operator[](int index)
 {
+	if (index < 0 || index>mCount)
+	{
+		throw "Index out of bound!";
+	}
 	return *mData[index];
 }
 
@@ -113,4 +128,9 @@ Treasure& TreasureContainer::operator[](int index)
 Treasure TreasureContainer::operator[](int index) const
 {
 	return *getAt(index);
+}
+
+int TreasureContainer::getCount() const
+{
+	return mCount;
 }

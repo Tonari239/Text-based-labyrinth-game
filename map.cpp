@@ -5,11 +5,9 @@ void Map::positionEntities()
 {
 	positionTreasures(mTreasuresCount);
 	positionMonsters(mMonstersCount);
-	this->visualize();
-	cout << endl;
 }
 
-Map::Map(int monstersCount, int treasuresCount, int level,int rows,int cols) 
+Map::Map(int level, int monstersCount, int treasuresCount,int rows,int cols) 
 	:mMonstersCount(monstersCount),mTreasuresCount(treasuresCount),mLevel(level), mGrid(rows,cols)
 {
 	positionEntities();
@@ -24,11 +22,11 @@ Map::Map(MapInfo initialMap) : mMonstersCount(initialMap.mMonstersCount),
 }
 
 
-Map::Map(MapInfo previousMap, MapInfo previousPreviousMap) 
+Map::Map(MapInfo previousPreviousMap, MapInfo previousMap)
 	: mMonstersCount(previousMap.mMonstersCount + previousPreviousMap.mMonstersCount),
 	mTreasuresCount(previousMap.mTreasuresCount + previousPreviousMap.mMonstersCount),
-	mLevel(previousMap.mLevel+1), mGrid(previousMap.mRows + previousPreviousMap.mRows,
-		previousMap.mCols + previousPreviousMap.mCols)
+	mLevel(previousMap.mLevel+1),mGrid((previousMap.mRows + previousPreviousMap.mRows),
+		(previousMap.mCols + previousPreviousMap.mCols))
 {
 	positionEntities();
 }
@@ -134,6 +132,10 @@ const Cell& Map::getCell(int x, int y) const
 
 int Map::getMonsterIndexByCoordinates(int x, int y) const
 {
+	if (x<0 || y < 0 || x >mGrid.getRows() || y > mGrid.getCols())
+	{
+		throw "Out of bounds!";
+	}
 	for (int i = 0; i < mMonstersCount; i++)
 	{
 		if (mMonsters[i].getXCoordinate() == x && mMonsters[i].getYCoordinate() == y)
@@ -146,6 +148,10 @@ int Map::getMonsterIndexByCoordinates(int x, int y) const
 
 int Map::getTreasureIndexByCoordinates(int x,int y) const
 {
+	if (x<0 || y < 0 || x >mGrid.getRows() || y > mGrid.getCols())
+	{
+		throw "Out of bounds!";
+	}
 	for (int i = 0; i < mMonstersCount; i++)
 	{
 		if (mTreasures[i].getXCoordinate() == x && mTreasures[i].getYCoordinate() == y)

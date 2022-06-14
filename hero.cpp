@@ -1,5 +1,4 @@
 #include "hero.h"
-#include "utilities.h"
 
 void Hero::initializeRaceStats()
 {
@@ -87,7 +86,8 @@ bool Hero::battle(Monster& monster)
 	system("CLS");
 	double initialHealth = getHealth();
 	double initialMana = getMana();
-	int heroAttacksFirst = Utilities::generateRandom(); // 1 ->	hero, 0 -> dragon
+	srand(time(NULL));
+	int heroAttacksFirst = rand() % 2; // 1 ->	hero, 0 -> dragon
 	if (heroAttacksFirst)
 	{
 		

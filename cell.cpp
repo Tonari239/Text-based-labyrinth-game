@@ -1,4 +1,5 @@
 #include "cell.h"
+
 Cell::Cell()
 {
 	mHasBeenVisited = false;
