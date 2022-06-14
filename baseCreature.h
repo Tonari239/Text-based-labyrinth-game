@@ -11,16 +11,20 @@ protected:
 	double mMana;
 	double mHealth;
 	double mPower;
-	
+	double mSpellPower;
 	
 
 public:
+	BaseCreature(int x = -1, int y = -1);
 	double getMana() const;
 	double getHealth() const;
 	double getPower() const;
+	double getSpellPower() const;
+
 	void setMana(double mana);
 	void setHealth(double health);
 	void setPower(double power);
+	void setSpellPower(double spellPower);
 
 	void takeDamage(double damage, double defensePercentBonus);
 

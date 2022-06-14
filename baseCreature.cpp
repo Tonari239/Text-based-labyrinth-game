@@ -22,7 +22,7 @@ void BaseCreature::takeDamage(double damage, double defensePercentBonus)
 	{
 		throw "Invalid operation, damage taken cannot be non-positive!";
 	}
-	mHealth -= (100-defensePercentBonus) *damage;
+	mHealth -= (1-(defensePercentBonus)/100) *damage;
 }
 
 void BaseCreature::setMana(double mana)
@@ -62,7 +62,7 @@ void BaseCreature::setPower(double power)
 
 double BaseCreature::castSpell(const Spell& spell)
 {
-	double damageToTake = getPower() + getPower() * spell.getPercentStat() / 100; // adding the bonus
+	double damageToTake = getSpellPower() + getSpellPower() * spell.getPercentStat() / 100; // adding the bonus
 	mMana -= spell.getManaCost();
 	return damageToTake;
 }
@@ -80,4 +80,23 @@ double BaseCreature::physicalAttack(Weapon* weapon) const
 	}
 	
 	return damageToTake;
+}
+
+BaseCreature::BaseCreature(int x, int y) : BaseEntity(x,y)
+{
+
+}
+
+double BaseCreature::getSpellPower() const
+{
+	return mSpellPower;
+}
+
+void BaseCreature::setSpellPower(double spellPower) 
+{
+	if (spellPower <= 0)
+	{
+		throw "Spell power cannot be negative!";
+	}
+	mSpellPower = spellPower;
 }

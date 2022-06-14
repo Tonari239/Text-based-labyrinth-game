@@ -71,7 +71,7 @@ void  GameEngine::moveHero(string direction)
 	}
 	else if (direction == "down")
 	{
-		destIsWall = destinationIsWall(xOldCoordinate, yOldCoordinate - 1);
+		destIsWall = destinationIsWall(xOldCoordinate+1, yOldCoordinate);
 		if (!destIsWall)
 		{
 			actOnDirection(xOldCoordinate+1, yOldCoordinate);
@@ -84,6 +84,7 @@ void GameEngine::determineAction(int x,int y)
 {
 	if (destinationIsTreasure(x, y))
 	{
+		system("CLS");
 		collectTreasure(x,y);
 	}
 	else if (destinationIsMonster(x, y))
@@ -98,7 +99,7 @@ void GameEngine::determineAction(int x,int y)
 				mMap.setEntityOnMap(x, y, '.'); // monster is no longer on cell
 			}
 		}
-		catch (int )
+		catch (int)
 		{
 			throw - 1; // will catch this in main and end program;
 		}
@@ -107,6 +108,7 @@ void GameEngine::determineAction(int x,int y)
 	else if (destinationIsExit(x, y))
 	{
 		mHero.levelUp();
+		//set current cell to symbol or whatever
 		generateLevel();
 	}
 }
@@ -114,7 +116,7 @@ void GameEngine::determineAction(int x,int y)
 void GameEngine::collectTreasure(int x, int y)
 {
 	int treasureIndex = mMap.getTreasureIndexByCoordinates(x, y);
-	mHero.takeTreasure(mMap.mTreasures.getAt(treasureIndex));
+	mHero.takeTreasure(*mMap.mTreasures.getAt(treasureIndex));
 	mMap.mTreasures.removeIndex(treasureIndex);
 }
 

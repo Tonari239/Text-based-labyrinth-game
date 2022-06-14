@@ -6,6 +6,6 @@ using namespace std;
 int Utilities::generateRandom()
 {
 	srand(time(NULL));
-	int start = rand() % 2 + 1;
+	int start = rand() % 2 ;
 	return start;
 }

@@ -1,11 +1,16 @@
 #include "weapon.h"
 
-Weapon::Weapon(int level, double percentStat) : Treasure(level,percentStat)
+Weapon::Weapon(int x,int y, int level, double percentStat) : Treasure(x,y,level,percentStat)
 {
 
 }
 
 string Weapon::getName() const
 {
-	return Treasure::getName() + "weapon";
+	return "weapon";
+}
+
+Weapon* Weapon::clone() const
+{
+	return new Weapon(*this);
 }

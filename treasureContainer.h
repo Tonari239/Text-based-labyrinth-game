@@ -28,10 +28,9 @@ public:
 
 
 	void addTreasure(const Treasure& T);
-	/*void addTreasure(const Treasure* T);*/
 	void removeIndex(int index);
 
-	const Treasure& getAt(int index) const;
+	const Treasure* getAt(int index) const;
 	Treasure& operator[](int index);
 	Treasure operator[](int index) const;
 	

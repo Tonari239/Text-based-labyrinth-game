@@ -1,9 +1,9 @@
 #include "monster.h"
 #include "utilities.h"
 
-Monster::Monster(int level) :mSpell(level)
+Monster::Monster(int x,int y,int level) :BaseCreature(x,y),mSpell(x,y,level)
 {
-	
+	setInitialStats();
 	for (int i = 1; i < level; i++)
 	{
 		levelUp();
@@ -46,4 +46,12 @@ void Monster::levelUp()
 	setHealth(getHealth() + 10);
 	mScaleDefensePercent += 5;
 	mSpell.levelUp();
+}
+
+void Monster::setInitialStats()
+{
+	mPower = 25;
+	mMana = 25;
+	mHealth = 50;
+	mSpellPower = 25;
 }

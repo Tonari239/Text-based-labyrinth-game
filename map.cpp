@@ -10,7 +10,7 @@ void Map::positionEntities()
 Map::Map(int monstersCount, int treasuresCount, int level,int rows,int cols) 
 	:mMonstersCount(monstersCount),mTreasuresCount(treasuresCount),mLevel(level), mGrid(rows,cols)
 {
-	
+	positionEntities();
 }
 
 Map::Map(MapInfo initialMap) : mMonstersCount(initialMap.mMonstersCount),
@@ -18,7 +18,7 @@ Map::Map(MapInfo initialMap) : mMonstersCount(initialMap.mMonstersCount),
 	mLevel(initialMap.mLevel), mGrid(initialMap.mRows,
 		initialMap.mCols)
 {
-
+	positionEntities();
 }
 
 
@@ -28,7 +28,7 @@ Map::Map(MapInfo previousMap, MapInfo previousPreviousMap)
 	mLevel(previousMap.mLevel+1), mGrid(previousMap.mRows + previousPreviousMap.mRows,
 		previousMap.mCols + previousPreviousMap.mCols)
 {
-
+	positionEntities();
 }
 
 
@@ -42,18 +42,17 @@ void Map::positionTreasures(int count)
 		int column=0;
 
 		do 
-		{
+		{ // checkni si tam kak da go garantirash che she e v range-a
 			srand(time(NULL));
-			row = rand() % mGrid.getRows();
-			column = rand() % mGrid.getCols();
+			row = 1+rand() % (mGrid.getRows()-1);
+			column =1+ rand() % (mGrid.getCols()-1);
 		} while (mGrid.getCell(row, column).isOccupied());
 
 		int currentIndex = mTreasuresCount - count;
 		rows[currentIndex] = row;
 		columns[currentIndex] = column;
 		setEntityOnMap(row, column, 'T');
-		Treasure treasure = GameUtilities::generateTreasure(mLevel);
-		mTreasures.addTreasure(treasure);
+		mTreasures.addTreasure(*(GameUtilities::generateTreasure(row,column,mLevel)));
 		--count;
 	}
 	delete[] rows;
@@ -72,15 +71,15 @@ void Map::positionMonsters(int count)
 		do
 		{
 			srand(time(NULL));
-			row = rand() % mGrid.getRows();
-			column = rand() % mGrid.getCols();
+			row = 1 + rand() % (mGrid.getRows() - 1);
+			column = 1 + rand() % (mGrid.getCols() - 1);
 		} while (mGrid.getCell(row, column).isOccupied());
 
 		int currentIndex = mMonstersCount - count;
 		rows[currentIndex] = row;
 		columns[currentIndex] = column;
 		setEntityOnMap(row, column, 'M');
-		Monster monster(mLevel);
+		Monster monster(row,column,mLevel);
 		mMonsters.push_back(monster);
 		--count;
 	}

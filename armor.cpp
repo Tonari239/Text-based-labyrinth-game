@@ -1,11 +1,16 @@
 #include "armor.h"
 
-Armor::Armor(int level, double percentStat) :Treasure(level,percentStat) // weapons improve as levels improve
+Armor::Armor(int x,int y, int level, double percentStat) :Treasure(x,y,level,percentStat) 
 {
 
 }
 
 string Armor::getName() const
 {
-	return Treasure::getName() + "armor";
+	return "armor";
 }
+
+Armor* Armor::clone() const
+{
+	return new Armor(*this);
+ }

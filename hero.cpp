@@ -7,18 +7,21 @@ void Hero::initializeRaceStats()
 	{
 		mPower = 30;
 		mMana = 20;
+		mSpellPower = 20;
 		mHealth = 50;
 	}
 	else if (mRace == 1)
 	{
 		mPower = 10;
 		mMana = 40;
+		mSpellPower = 40;
 		mHealth = 50;
 	}
 	else
 	{
 		mPower = 40;
 		mMana = 10;
+		mSpellPower = 10;
 		mHealth = 50;
 	}
 }
@@ -69,6 +72,7 @@ void Hero::distributeStats()
 
 bool Hero::battle(Monster& monster)
 {
+	
 	double initialHealth = getHealth();
 	double initialMana = getMana();
 	int heroAttacksFirst = Utilities::generateRandom(); // 1 ->	hero, 0 -> dragon
@@ -76,22 +80,36 @@ bool Hero::battle(Monster& monster)
 	{
 		while (getHealth()>0 && monster.getHealth() > 0)
 		{
+			system("CLS");
+			cout << "Your health: " << getHealth() << endl;
+			cout <<"Monster health: " <<monster.getHealth() << endl;
 			attack(monster);
+			if (monster.getHealth() <= 0)
+			{
+				break;
+			}
 			monster.attack(*this);
 		}
 	}
 	else
 	{
+		
 		while (getHealth() > 0 && monster.getHealth() > 0)
 		{
+			system("CLS");
+			cout << "Your health: " << getHealth() << endl;
+			cout << "Monster health: " << monster.getHealth() << endl;
 			monster.attack(*this);
+			if (getHealth() <= 0)
+			{
+				break;
+			}
 			attack(monster);
 		}
 	}
 	
 	if (monster.getHealth() <= 0)
 	{
-		cout << "Victory!" <<endl;
 		double restoredHealth = getHealth() + initialHealth * 1.0 / 2;
 		if (restoredHealth >= initialHealth)
 		{
@@ -125,7 +143,7 @@ const Inventory& Hero::getInventory() const
 	return mInventory;
 }
 
-Hero::Hero(Race race) :mInventory(Weapon(),Spell()), mRace(race), mCurrentLevel(1)
+Hero::Hero(Race race) :mInventory(Weapon(0,0,mCurrentLevel),Spell(0, 0, mCurrentLevel), Armor(0,0,0,0)), mRace(race), mCurrentLevel(1)
 {
 	initializeRaceStats();
 }
@@ -151,7 +169,7 @@ void Hero::setCoordinates(int x, int y)
 
 void Hero::takeTreasure(const Treasure& treasure)
 {
-	cout << "You found a " << treasure.getName() << " .Would you like to keep it?: y/n" << endl;
+	cout << "You found " << treasure.getName() << ". Would you like to keep it?: y/n" << endl;
 	char c;
 	cin >> c;
 	while (c!='y' && c!='n')
@@ -168,16 +186,17 @@ void Hero::takeTreasure(const Treasure& treasure)
 		if (treasure.getName() == "spell")
 		{
 			
-			mInventory.setSpell(Spell(mCurrentLevel,treasure.getPercentStat()));
+			mInventory.setSpell(Spell(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel,treasure.getPercentStat()));
 		}
 		else if (treasure.getName() == "weapon")
 		{
-			mInventory.setWeapon(Weapon(mCurrentLevel, treasure.getPercentStat()));
+			mInventory.setWeapon(Weapon(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel, treasure.getPercentStat()));
 		}
 		else
 		{
-			mInventory.setArmor(Armor(mCurrentLevel, treasure.getPercentStat()));
+			mInventory.setArmor(Armor(treasure.getXCoordinate(),treasure.getYCoordinate(),mCurrentLevel, treasure.getPercentStat()));
 		}
 	}
 
 }
+

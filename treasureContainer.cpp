@@ -36,7 +36,8 @@ void TreasureContainer::resizeAccordingly()
 
 void TreasureContainer::resize(double multiplier)
 {
-	Treasure** temp = new Treasure * [mCapacity * multiplier];
+	mCapacity *= multiplier;
+	Treasure** temp = new Treasure * [mCapacity];
 	for (int i = 0; i < mCount; i++)
 	{
 		temp[i] = mData[i];
@@ -114,11 +115,7 @@ void TreasureContainer::addTreasure(const Treasure& T)
 	mData[mCount++] = T.clone();
 }
 
-//void TreasureContainer::addTreasure(const Treasure* T)
-//{
-//	resizeAccordingly();
-//	mData[mCount++] = T->clone();
-//}
+
 
 void TreasureContainer::removeIndex(int index)
 {
@@ -133,18 +130,19 @@ void TreasureContainer::removeIndex(int index)
 }
 
 
-const Treasure& TreasureContainer::getAt(int index) const
+const Treasure* TreasureContainer::getAt(int index) const
 {
-	return *(mData[index]);
+	return (mData[index]);
 }
 
-//sussy, nz dali raboti as expected, fuck around to find out
+
 Treasure& TreasureContainer::operator[](int index)
 {
 	return *mData[index];
 }
 
+
 Treasure TreasureContainer::operator[](int index) const
 {
-	return *mData[index];
+	return *getAt(index);
 }

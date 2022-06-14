@@ -38,25 +38,26 @@ vector<string> splitStringByDelimiter(string input,char delimiter)
 	
 }
 
-void print(int n)
-{
-	cout << n;
-}
+
 int main()
 {
 	Hero hero((Race)1); 
 	GameEngine gameEngine(hero);
+	
 	string command;
 	while (true)
 	{
 		gameEngine.visualizeMap();
 		cout << endl;
 		cin >> command;
-		gameEngine.moveHero(command);
-		gameEngine.visualizeMap();
+		try
+		{
+			gameEngine.moveHero(command);
+		}
+		catch (int)
+		{
+			break;
+		}
+		
 	}
-	
-	
-	
-
 }
