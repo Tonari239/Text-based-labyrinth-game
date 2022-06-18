@@ -3,12 +3,12 @@
 
 string FileManager::getFileName() const
 {
-	return fileName;
+	return mCurentFileName;
 }
 
 void FileManager::setFileName(string name)
 {
-	name = fileName;
+	name = mCurentFileName;
 }
 
 bool FileManager::getFileIsOpenStatus() const
@@ -22,19 +22,30 @@ void FileManager::setFileIsOpenStatus(bool status)
 }
 
 
-void FileManager::help() const
+
+FileManager::FileManager() :fileIsOpen(false), mCurentFileName("")
 {
-	system("CLS");
-	cout << "The following commands are supported: " << endl;
-	cout <<"open <file>              opens <file> and enabled user to make changes to map" << endl;
-	cout <<"close                    closes currently opened file" << endl;
-	cout <<"save                     saves currently opened file" << endl;
-	cout << "saveas <file>           saves currently opened file in <file>" << endl;
-	cout << "help                    prints this information" << endl;
-	cout << "exit                    exists program" << endl;
+
 }
 
-FileManager::FileManager() :fileIsOpen(false), fileName("")
+void FileManager::open(string fileName)
+{
+	setFileName(fileName);
+	setFileIsOpenStatus(true);
+}
+
+void FileManager::close()
+{
+	if (getFileIsOpenStatus())
+	{
+
+	}
+}
+void FileManager::save()
+{
+
+}
+void FileManager::saveAs(string newFileName)
 {
 
 }

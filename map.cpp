@@ -40,13 +40,14 @@ void Map::positionTreasures(int count)
 	{
 		int row = 0;
 		int column = 0;
-
+		char symbol;
 		do
 		{ 
 			srand(time(NULL));
 			row = 1 + rand() % (mGrid.getRows() - 1);
 			column = 1 + rand() % (mGrid.getCols() - 1);
-		} while (mGrid.getCell(row, column).isOccupied());
+			symbol = mGrid.getCell(row,column).getSymbol();
+		} while (symbol!='?');
 
 		int currentIndex = mTreasuresCount - count;
 		rows[currentIndex] = row;

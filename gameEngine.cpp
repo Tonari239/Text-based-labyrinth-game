@@ -1,11 +1,6 @@
 #include "gameEngine.h"
 
-//format for map info:  <level> <monsters count> <treasures count> <rows> <columns>
-MapInfo GameEngine::previousPreviousMapInfo = {1,2,2,10,10}; //  first base level
-MapInfo GameEngine::previousMapInfo = {2,3,2,15,10}; // second base level
-
-
-GameEngine::GameEngine(const Hero& hero) : mHero(hero), mMap(previousPreviousMapInfo)
+GameEngine::GameEngine(const Hero& hero) :previousPreviousMapInfo(1, 2, 2, 10, 10), previousMapInfo(2, 3, 2, 15, 10), mHero(hero), mMap(previousPreviousMapInfo)
 {
 	generateLevel();
 }
@@ -174,3 +169,4 @@ void GameEngine::visualizeMap() const
 	system("CLS");
 	mMap.visualize();
 }
+

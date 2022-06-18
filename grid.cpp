@@ -63,7 +63,7 @@ void Grid::print() const
 	}
 }
 
-void Grid::free()
+void Grid::_free()
 {
 	for (int i = 0; i < mRows; i++)
 	{
@@ -102,7 +102,7 @@ int Grid::getCols() const
 
 Grid::~Grid()
 {
-	free();
+	_free();
 }
 
 Grid::Grid(const Grid& other)
@@ -114,7 +114,7 @@ Grid& Grid::operator=(const Grid& other)
 {
 	if (this != &other)
 	{
-		free(); // tova beshe zakomentirano for some reason
+		_free(); // tova beshe zakomentirano for some reason
 		copyFrom(other);
 	}
 	return *this;

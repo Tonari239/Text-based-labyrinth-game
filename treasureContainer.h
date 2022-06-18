@@ -15,7 +15,7 @@ class TreasureContainer
 	void copyFrom(const TreasureContainer& other);
 	void resize(double multiplier);
 	void resizeAccordingly();
-	void free();
+	void _free();
 public:
 	TreasureContainer(int capacity = DEFAULT_CAPACITY);
 	TreasureContainer(const TreasureContainer& other);

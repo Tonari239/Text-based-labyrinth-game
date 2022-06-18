@@ -5,12 +5,15 @@ using namespace std;
 #include <iostream>
 class FileManager
 {
-	string fileName;
+	string mCurentFileName;
 	bool fileIsOpen;
 
 public:
 	FileManager();
-	void help() const;
+	void open(string fileName);
+	void close();
+	void save();
+	void saveAs(string newFileName);
 	bool getFileIsOpenStatus() const;
 	void setFileIsOpenStatus(bool status);
 	string getFileName() const;

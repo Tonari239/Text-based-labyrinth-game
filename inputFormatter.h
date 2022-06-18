@@ -7,9 +7,9 @@
 using namespace std;
 class InputFormatter
 {
-	int getDelimiterCount(string input, char delimiter);
+	static int getDelimiterCount(string input, char delimiter);
 public:
-	vector<string> splitStringByDelimiter(string input, char delimiter);
+	static vector<string> splitStringByDelimiter(string input, char delimiter);
 };
 
 #endif

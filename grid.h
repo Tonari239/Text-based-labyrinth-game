@@ -12,7 +12,7 @@ class Grid
 	int mCols;
 	Cell** mGrid;
 
-	void free();
+	void _free();
 	void copyFrom(const Grid& other);
 	void populateGrid();
 public:

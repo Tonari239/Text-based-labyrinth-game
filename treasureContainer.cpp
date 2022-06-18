@@ -11,7 +11,7 @@ void TreasureContainer::copyFrom(const TreasureContainer& other)
 	}
 }
 
-void TreasureContainer::free()
+void TreasureContainer::_free()
 {
 	for (int i = 0; i < mCount; i++)
 	{
@@ -61,14 +61,14 @@ TreasureContainer::TreasureContainer(const TreasureContainer& other)
 
 TreasureContainer::~TreasureContainer()
 {
-	free();
+	_free();
 }
 
 TreasureContainer& TreasureContainer::operator=(const TreasureContainer& other)
 {
 	if (this != &other)
 	{
-		free();
+		_free();
 		copyFrom(other);
 	}
 	return *this;

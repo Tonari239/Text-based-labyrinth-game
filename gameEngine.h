@@ -6,10 +6,13 @@
 class GameEngine
 {
 	Hero mHero;
-	Map mMap;
+	
 
-	static MapInfo previousMapInfo;
-	static MapInfo previousPreviousMapInfo;
+
+	//format for map info:  <level> <monsters count> <treasures count> <rows> <columns>
+	MapInfo previousPreviousMapInfo; //  first base level
+	MapInfo previousMapInfo; // second base level
+	Map mMap;
 
 	void positionHeroAtStart();
 	void generateMap();
@@ -25,9 +28,11 @@ public:
 	GameEngine(const Hero& hero);
 	void moveHero(string direction);
 	void generateLevel();
-	static void updatePreviousMapInfo(Map currentMap);
+	void updatePreviousMapInfo(Map currentMap);
 	void visualizeMap() const;
 	void actOnDirection(int xOldCoordinate, int yOldCorodinate, int xNewCoordinate, int yNewCoordinate,int initialLevel);
+	void run();
+	void loadGameFromFile(const string& file);
 };
 
 #endif
