@@ -42,7 +42,7 @@ public:
 	void takeTreasure(const Treasure& treasure);
 
 	friend ostream& operator<<(ostream& out, const Hero& hero);
-	friend istream& operator>>(istream& out,Hero& hero);
+	friend istream& operator>>(istream& in,Hero& hero);
 	
 };
 

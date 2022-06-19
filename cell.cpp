@@ -51,11 +51,7 @@ ostream& operator<<(ostream& out, const Cell& cell)
 istream& operator>>(istream& in, Cell& cell)
 {
 	in >> cell.mSymbol;
-	if (cell.mSymbol == '?')
-	{
-		cell.mHasBeenVisited = false;
-	}
-	else if (cell.mSymbol == '.')
+	if (cell.mSymbol == '.')
 	{
 		cell.mHasBeenVisited = true;
 	}

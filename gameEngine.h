@@ -1,8 +1,7 @@
 #ifndef __GAME_ENGINE_H
 #define __GAME_ENGINE_H
+#include "GameFileManager.h"
 
-#include "hero.h"
-#include "map.h"
 class GameEngine
 {
 	Hero mHero;
@@ -13,6 +12,7 @@ class GameEngine
 	MapInfo previousPreviousMapInfo; //  first base level
 	MapInfo previousMapInfo; // second base level
 	Map mMap;
+	
 
 	void positionHeroAtStart();
 	void generateMap();
@@ -25,6 +25,8 @@ class GameEngine
 	void act(int x, int y);
 
 public:
+	GameFileManager mGameFileManager;
+
 	GameEngine(const Hero& hero);
 	void moveHero(string direction);
 	void generateLevel();
@@ -33,6 +35,11 @@ public:
 	void actOnDirection(int xOldCoordinate, int yOldCorodinate, int xNewCoordinate, int yNewCoordinate,int initialLevel);
 	void run();
 	void loadGameFromFile(const string& file);
+
+	void restoreSession(string backUpFile);
+	void saveSession(string backUpFile);
+
+	friend class Engine;
 };
 
 #endif

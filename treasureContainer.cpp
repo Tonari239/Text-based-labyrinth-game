@@ -134,3 +134,23 @@ int TreasureContainer::getCount() const
 {
 	return mCount;
 }
+
+ostream& operator<<(ostream& out, const TreasureContainer& tc)
+{
+	out << tc.mCount;
+	for (int i = 0; i < tc.mCount; i++)
+	{
+		out << *tc.mData[i];
+	}
+	return out;
+}
+
+istream& operator>>(istream& in, TreasureContainer& tc)
+{
+	in >> tc.mCount;
+	for (int i = 0; i < tc.mCount; i++)
+	{
+		in >> *tc.mData[i];
+	}
+	return in;
+}

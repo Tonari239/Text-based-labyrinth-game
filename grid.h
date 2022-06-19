@@ -31,7 +31,11 @@ public:
 	int getCols() const;
 
 	friend ostream& operator<<(ostream& out, const Grid& grid);
-	friend istream& operator>>(istream& out, Grid& grid);
+	friend istream& operator>>(istream& in, Grid& grid);
+
+	////move semantics
+	//Grid(const Grid&& other);
+	//Grid& operator=(const Grid&& other);
 };
 
 

@@ -1,6 +1,11 @@
 #include "armor.h"
 
-Armor::Armor(int x,int y, int level, double percentStat) :Treasure(x,y,level,percentStat) 
+Armor::Armor(int x,int y, double percentStat, int level) :Treasure(x,y,level,percentStat)
+{
+
+}
+
+Armor::Armor(int x, int y, int level) : Treasure(x, y, level)
 {
 
 }

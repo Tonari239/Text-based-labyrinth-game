@@ -6,7 +6,8 @@
 class Weapon :virtual public Treasure
 {
 public:
-	Weapon(int x=-1,int y=-1, int level=1,double percentStat = 20);
+	Weapon(int x=-1,int y=-1,double percentStat = 20, int level = 1);
+	Weapon(int x = -1, int y = -1, int level = 1);
 	string getName() const override;
 	virtual Weapon* clone() const override;
 };

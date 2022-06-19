@@ -1,5 +1,6 @@
 #include "gameEngine.h"
 
+
 GameEngine::GameEngine(const Hero& hero) :previousPreviousMapInfo(1, 2, 2, 10, 10), previousMapInfo(2, 3, 2, 15, 10), mHero(hero), mMap(previousPreviousMapInfo)
 {
 	generateLevel();
@@ -168,5 +169,21 @@ void GameEngine::visualizeMap() const
 {
 	system("CLS");
 	mMap.visualize();
+}
+
+void GameEngine::restoreSession(string backUpFile)
+{
+	ifstream file(backUpFile);
+	file >> mHero;
+	file >> mMap;
+	file.close();
+}
+
+void GameEngine::saveSession(string backUpFile)
+{
+	ofstream file(backUpFile);
+	file << mHero;
+	file << mMap;
+	file.close();
 }
 

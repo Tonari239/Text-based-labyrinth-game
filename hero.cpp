@@ -219,3 +219,28 @@ void Hero::takeTreasure(const Treasure& treasure)
 
 }
 
+ostream& operator<<(ostream& out, const Hero& hero)
+{
+	//hero stats
+	out << hero.mCurrentLevel << hero.mRace << hero.mXCoordinate << hero.mYCoordinate 
+		<< hero.mHealth << hero.mMana << hero.mPower << hero.mSpellPower;
+
+	//hero inventory
+	out << hero.mInventory;
+	return out;
+}
+
+istream& operator>>(istream& in, Hero& hero)
+{
+	//hero stats
+	int race;
+	in >> hero.mCurrentLevel >> race >> hero.mXCoordinate >> hero.mYCoordinate
+		>> hero.mHealth >> hero.mMana >> hero.mPower >> hero.mSpellPower;
+	hero.mRace = (Race)race;
+
+	//hero inventory
+	in >> hero.mInventory;
+	return in;
+
+}
+

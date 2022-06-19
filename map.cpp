@@ -167,3 +167,27 @@ void  Map::visualize() const
 {
 	mGrid.print();
 }
+
+ostream& operator<<(ostream& out, const Map& map)
+{
+	out << map.mLevel << map.mMonstersCount << map.mTreasuresCount;
+	out << map.mGrid; // ??
+	out << map.mTreasures;
+	for (int i = 0; i < map.mMonstersCount; i++)
+	{
+		out << map.mMonsters[i];
+	}
+	return out;
+}
+
+istream& operator>>(istream& in, Map& map)
+{
+	in >> map.mLevel >> map.mMonstersCount >> map.mTreasuresCount;
+	in >> map.mGrid; // ??
+	in >> map.mTreasures;
+	for (int i = 0; i < map.mMonstersCount; i++)
+	{
+		in >> map.mMonsters[i];
+	}
+	return in;
+}

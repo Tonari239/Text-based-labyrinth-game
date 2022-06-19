@@ -22,6 +22,9 @@ public:
 	void setSpell(const Spell& spell);
 	void setArmor(const Armor& armor);
 	void setWeapon(const Weapon& weapon);
+
+	friend ostream& operator<<(ostream& out, const Inventory& inventory);
+	friend istream& operator>>(istream& in, Inventory& inventory);
 	
 };
 

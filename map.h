@@ -39,6 +39,9 @@ public:
 	int getTreasureIndexByCoordinates(int x,int y) const;
 	void visualize() const;
 	friend class GameEngine;
+
+	friend ostream& operator<<(ostream& out, const Map& map);
+	friend istream& operator>>(istream& in, Map& map);
 };
 
 #endif

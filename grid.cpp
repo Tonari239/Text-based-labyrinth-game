@@ -34,9 +34,7 @@ void Grid::populateGrid()
 				setCellValue(i, j, '#'); 
 				
 			}
-			/*cout << mGrid[i][j];*/
 		}
-		/*cout << endl;*/
 		
 	}
 }
@@ -114,7 +112,7 @@ Grid& Grid::operator=(const Grid& other)
 {
 	if (this != &other)
 	{
-		_free(); // tova beshe zakomentirano for some reason
+		_free(); 
 		copyFrom(other);
 	}
 	return *this;
@@ -131,7 +129,7 @@ void Grid::markCellAsVisited(int row, int col)
 
 ostream& operator<<(ostream& out, const Grid& grid)
 {
-	out << grid.mRows << " " << grid.mCols;
+	out << grid.mRows << grid.mCols;
 	for (int i = 0; i < grid.mRows; i++)
 	{
 		for (int j = 0; j < grid.mCols; j++)

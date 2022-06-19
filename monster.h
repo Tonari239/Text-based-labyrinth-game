@@ -17,6 +17,9 @@ public:
 	const Spell& getSpell() const;
 	void levelUp() override;
 	void attack(Hero& hero);
+
+	friend ostream& operator<<(ostream& out, const Monster& monster);
+	friend istream& operator>>(istream& in, Monster& monster);
 };
 
 #endif

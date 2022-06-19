@@ -68,3 +68,30 @@ void Monster::setInitialStats()
 	mHealth = 50;
 	mSpellPower = 25;
 }
+
+ostream& operator<<(ostream& out, const Monster& monster)
+{
+	//monster stats
+	out << monster.mXCoordinate << monster.mYCoordinate
+		<< monster.mHealth << monster.mMana << monster.mPower << monster.mSpellPower
+		<<monster.mScaleDefensePercent;
+
+	//monster spell
+	out << monster.mSpell;
+	return out;
+}
+
+istream& operator>>(istream& in, Monster& monster)
+{
+	//monster stats
+	in >> monster.mXCoordinate >> monster.mYCoordinate
+		>> monster.mHealth >> monster.mMana >> monster.mPower >> monster.mSpellPower
+		>> monster.mScaleDefensePercent;
+	
+
+	//monster spell
+	in >> monster.mSpell;
+	return in;
+
+}
+

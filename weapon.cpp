@@ -1,9 +1,15 @@
 #include "weapon.h"
 
-Weapon::Weapon(int x,int y, int level, double percentStat) : Treasure(x,y,level,percentStat)
+Weapon::Weapon(int x,int y, double percentStat, int level) : Treasure(x,y,level,percentStat)
 {
 
 }
+
+Weapon::Weapon(int x, int y, int level) :Treasure(x,y,level)
+{
+
+}
+
 
 string Weapon::getName() const
 {
