@@ -31,17 +31,20 @@ public:
 	int getTreasuresCount() const;
 	int getRows() const;
 	int getCols() const;
-	void setEntityOnMap(int x,int y,char c);
-	void markCellAsVisited(int x, int y);
 	const Cell& getCell(int x, int y) const;
-
 	int getMonsterIndexByCoordinates(int x, int y) const;
-	int getTreasureIndexByCoordinates(int x,int y) const;
+	int getTreasureIndexByCoordinates(int x, int y) const;
+
+	void setEntityOnMap(int x,int y,char c);
+
+	void markCellAsVisited(int x, int y);
 	void visualize() const;
-	friend class GameEngine;
+	
 
 	friend ostream& operator<<(ostream& out, const Map& map);
 	friend istream& operator>>(istream& in, Map& map);
+
+	friend class GameEngine;
 };
 
 #endif

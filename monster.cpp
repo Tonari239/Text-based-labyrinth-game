@@ -20,6 +20,16 @@ const Spell& Monster::getSpell() const
 	return mSpell;
 }
 
+
+void Monster::setInitialStats()
+{
+	mPower = 25;
+	mMana = 25;
+	mHealth = 50;
+	mSpellPower = 25;
+}
+
+
 void Monster::attack(Hero& hero)
 {
 	double mana = getMana();
@@ -61,20 +71,13 @@ void Monster::levelUp()
 	mSpell.levelUp();
 }
 
-void Monster::setInitialStats()
-{
-	mPower = 25;
-	mMana = 25;
-	mHealth = 50;
-	mSpellPower = 25;
-}
 
 ostream& operator<<(ostream& out, const Monster& monster)
 {
 	//monster stats
-	out << monster.mXCoordinate << monster.mYCoordinate
-		<< monster.mHealth << monster.mMana << monster.mPower << monster.mSpellPower
-		<<monster.mScaleDefensePercent;
+	out << monster.mXCoordinate << ' ' << monster.mYCoordinate
+		<< ' ' << monster.mHealth << ' ' << monster.mMana << ' ' << monster.mPower << ' ' << monster.mSpellPower
+		<< ' ' <<monster.mScaleDefensePercent <<endl;
 
 	//monster spell
 	out << monster.mSpell;

@@ -9,7 +9,6 @@ class Engine
 	GameEngine gameEngine;
 
 	void printHelp() const;
-	void instantiateGameEngine();
 public:
 	Engine(GameEngine gameEngine);
 	

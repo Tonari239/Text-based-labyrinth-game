@@ -10,13 +10,17 @@ class Cell
 
 public:
 	Cell();
+	char getSymbol() const;
+	void setSymbol(char c);
+	void setVisitedStatus(bool status);
+
 	bool isOccupied() const;
 	bool hasBeenVisited() const;
 	void markVisited();
-	void setSymbol(char c);
+	
 	void print() const;
-	char getSymbol() const;
-	void setVisitedStatus(bool status);
+	
+	
 
 	friend ostream& operator<<(ostream& out, const Cell& cell);
 	friend istream& operator>>(istream& out, Cell& cell);

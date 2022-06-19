@@ -1,5 +1,15 @@
 #include "GameFileManager.h"
 
+GameFileManager::GameFileManager() :fileIsOpen(false), mCurentFileName(""), unsavedChanges(false)
+{
+
+}
+
+bool GameFileManager::getFileIsOpenStatus() const
+{
+	return fileIsOpen;
+}
+
 bool GameFileManager::getUnsavedChanges() const
 {
 	return unsavedChanges;
@@ -10,15 +20,6 @@ string GameFileManager::getFileName() const
 	return mCurentFileName;
 }
 
-void GameFileManager::setFileName(string name)
-{
-	name = mCurentFileName;
-}
-
-bool GameFileManager::getFileIsOpenStatus() const
-{
-	return fileIsOpen;
-}
 
 void GameFileManager::setFileIsOpenStatus(bool status)
 {
@@ -30,10 +31,11 @@ void GameFileManager::setUnsavedChanges(bool status)
 	unsavedChanges = status;
 }
 
-GameFileManager::GameFileManager() :fileIsOpen(false), mCurentFileName(""),unsavedChanges(false)
+void GameFileManager::setFileName(string name)
 {
-
+	name = mCurentFileName;
 }
+
 
 void GameFileManager::open(string fileName,Hero& hero,Map& map)
 {

@@ -18,24 +18,21 @@ class Grid
 public:
 	Grid() = default;
 	Grid(int rows, int cols);
-	~Grid();
 	Grid(const Grid& other);
+	~Grid();
 	Grid& operator=(const Grid& other);
-
-	void setCellValue(int row, int col, char value);
-	const Cell& getCell(int row, int col) const;
-	void markCellAsVisited(int row, int col);
-	void print() const;
 
 	int getRows() const;
 	int getCols() const;
+	const Cell& getCell(int row, int col) const;
+	void setCellValue(int row, int col, char value);
+	void markCellAsVisited(int row, int col);
+	void print() const;
 
+	
 	friend ostream& operator<<(ostream& out, const Grid& grid);
 	friend istream& operator>>(istream& in, Grid& grid);
 
-	////move semantics
-	//Grid(const Grid&& other);
-	//Grid& operator=(const Grid&& other);
 };
 
 

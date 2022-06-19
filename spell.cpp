@@ -1,27 +1,28 @@
 #include "spell.h"
 
 
+Spell::Spell(int x, int y, double percentStat, double manaCost, int level)
+	:Treasure(x, y, level, percentStat), mManaCost(manaCost)
+{
+
+}
+
+Spell::Spell(int x, int y, int level) : Treasure(x, y, level), mManaCost(5)
+{
+
+}
+
 
 double Spell::getManaCost() const
 {
 	return mManaCost;
 }
 
-Spell::Spell(int x,int y, double percentStat, double manaCost, int level)
-	:Treasure(x,y,level, percentStat),mManaCost(manaCost)
-{
-
-}
-
-Spell::Spell(int x, int y, int level) : Treasure(x, y, level)
-{
-
-}
-
 string Spell::getName() const
 {
 	return "spell";
 }
+
 
 Spell* Spell::clone() const
 {
@@ -30,7 +31,7 @@ Spell* Spell::clone() const
 
 ostream& operator<<(ostream& out, const Spell& spell)
 {
-	out << spell.mXCoordinate << spell.mYCoordinate << spell.getPercentStat();
+	out << spell.mXCoordinate << ' ' << spell.mYCoordinate <<' '<< spell.getPercentStat() <<' '<< spell.mManaCost;
 	return out;
 }
 

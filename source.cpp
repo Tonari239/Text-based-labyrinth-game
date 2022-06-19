@@ -1,4 +1,4 @@
-using namespace std;
+﻿using namespace std;
 #include "engine.h"
 
 
@@ -13,11 +13,11 @@ int main()
 	} while (race < 0 && race >2);
 	Hero hero((Race)race);
 	system("CLS");
-	cout << "Loading map..."<<endl;
+	cout << "Loading map..." << endl;
 	GameEngine gameEngine(hero);
 
 	Engine engine(gameEngine);
-	
+
 	try
 	{
 		engine.run();
@@ -27,7 +27,4 @@ int main()
 		cout << "Exiting program...";
 		return -1;
 	}
-	
-
-	
 }

@@ -10,9 +10,11 @@ class Monster :public BaseCreature
 {
 	double mScaleDefensePercent=15;
 	Spell mSpell;
+
 	void setInitialStats();
 public:
-	Monster(int x=-1,int y=-1,int level=1); // TODO: utochni si kak shte sazdavash chudovishtata
+	Monster(int x=-1,int y=-1,int level=1); 
+
 	double getScaleDefensePercent() const;
 	const Spell& getSpell() const;
 	void levelUp() override;

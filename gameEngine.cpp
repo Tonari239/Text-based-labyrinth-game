@@ -1,7 +1,8 @@
 #include "gameEngine.h"
+#include <string>
 
 
-GameEngine::GameEngine(const Hero& hero) :previousPreviousMapInfo(1, 2, 2, 10, 10), previousMapInfo(2, 3, 2, 15, 10), mHero(hero), mMap(previousPreviousMapInfo)
+GameEngine::GameEngine(const Hero& hero) :previousPreviousMapInfo(1, 2, 2, 10, 10), previousMapInfo(2, 3, 2, 15, 10), mHero(hero), mMap(previousPreviousMapInfo), filesCount(0)
 {
 	generateLevel();
 }
@@ -13,6 +14,9 @@ void GameEngine::generateLevel()
 		generateMap();
 	}
 	positionHeroAtStart();
+	++filesCount;
+	string fileName = "gameFile" +std::to_string(filesCount) + (string)".txt";
+	saveSession(fileName);
 }
 
 void GameEngine::updatePreviousMapInfo(Map currentMap)
@@ -176,7 +180,11 @@ void GameEngine::restoreSession(string backUpFile)
 	ifstream file(backUpFile);
 	file >> mHero;
 	file >> mMap;
-	file.close();
+	if (file)
+	{
+		file.close();
+	}
+	
 }
 
 void GameEngine::saveSession(string backUpFile)
@@ -184,6 +192,10 @@ void GameEngine::saveSession(string backUpFile)
 	ofstream file(backUpFile);
 	file << mHero;
 	file << mMap;
+	if (file)
+	{
+		file.close();
+	}
 	file.close();
 }
 

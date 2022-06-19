@@ -6,7 +6,7 @@ class GameEngine
 {
 	Hero mHero;
 	
-
+	int filesCount;
 
 	//format for map info:  <level> <monsters count> <treasures count> <rows> <columns>
 	MapInfo previousPreviousMapInfo; //  first base level
@@ -33,9 +33,7 @@ public:
 	void updatePreviousMapInfo(Map currentMap);
 	void visualizeMap() const;
 	void actOnDirection(int xOldCoordinate, int yOldCorodinate, int xNewCoordinate, int yNewCoordinate,int initialLevel);
-	void run();
-	void loadGameFromFile(const string& file);
-
+	
 	void restoreSession(string backUpFile);
 	void saveSession(string backUpFile);
 

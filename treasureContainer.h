@@ -22,7 +22,7 @@ public:
 	~TreasureContainer();
 	TreasureContainer& operator=(const TreasureContainer& other);
 
-
+	int getCount() const;
 
 	void addTreasure(const Treasure& T);
 	void removeIndex(int index);
@@ -31,10 +31,9 @@ public:
 	Treasure& operator[](int index);
 	Treasure operator[](int index) const;
 	
-	int getCount() const;
-
 	friend ostream& operator<<(ostream& out, const TreasureContainer& tc);
 	friend istream& operator>>(istream& in, TreasureContainer& tc);
+
 };
 
 #endif

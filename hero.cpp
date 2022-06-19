@@ -1,5 +1,28 @@
 #include "hero.h"
 
+
+Hero::Hero(Race race) :mInventory(Weapon(0, 0, mCurrentLevel), Spell(0, 0, mCurrentLevel), Armor(0, 0, 0, 0)), mRace(race), mCurrentLevel(1)
+{
+	initializeRaceStats();
+}
+
+int Hero::getCurrentLevel() const
+{
+	return mCurrentLevel;
+}
+
+const Inventory& Hero::getInventory() const
+{
+	return mInventory;
+}
+
+void Hero::setCoordinates(int x, int y)
+{
+	mXCoordinate = x;
+	mYCoordinate = y;
+}
+
+
 void Hero::initializeRaceStats()
 {
 	if (mRace == 0)
@@ -39,7 +62,7 @@ void Hero::attack(Monster& monster)
 		 
 		if (castsASpell)
 		{
-			damageToTake = castSpell(monster.getSpell());
+			damageToTake = castSpell(spell);
 			cout << "You cast a spell and inflict ";
 		}
 		else
@@ -157,33 +180,12 @@ int Hero::chooseAttackMethod() const
 	return choice;
 }
 
-const Inventory& Hero::getInventory() const
-{
-	return mInventory;
-}
-
-Hero::Hero(Race race) :mInventory(Weapon(0,0,mCurrentLevel),Spell(0, 0, mCurrentLevel), Armor(0,0,0,0)), mRace(race), mCurrentLevel(1)
-{
-	initializeRaceStats();
-}
-
 void Hero::restoreStatsAfterBattle(double initialHealth, double initialMana, double percentToRecover)
 {
 	double restoredHealth = getHealth() + initialHealth * percentToRecover;
 	double restoredMana = getMana() + initialMana * percentToRecover;
 	setHealth(restoredHealth);
 	setMana(restoredMana);
-}
-
-int Hero::getCurrentLevel() const
-{
-	return mCurrentLevel;
-}
-
-void Hero::setCoordinates(int x, int y)
-{
-	mXCoordinate = x;
-	mYCoordinate = y;
 }
 
 void Hero::takeTreasure(const Treasure& treasure)
@@ -219,11 +221,12 @@ void Hero::takeTreasure(const Treasure& treasure)
 
 }
 
+
 ostream& operator<<(ostream& out, const Hero& hero)
 {
 	//hero stats
-	out << hero.mCurrentLevel << hero.mRace << hero.mXCoordinate << hero.mYCoordinate 
-		<< hero.mHealth << hero.mMana << hero.mPower << hero.mSpellPower;
+	out << hero.mCurrentLevel << ' ' << hero.mRace << ' ' << hero.mXCoordinate << ' ' << hero.mYCoordinate
+		<< ' ' << hero.mHealth << ' ' << hero.mMana << ' ' << hero.mPower << ' ' << hero.mSpellPower <<endl;
 
 	//hero inventory
 	out << hero.mInventory;

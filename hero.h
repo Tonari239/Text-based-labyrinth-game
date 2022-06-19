@@ -33,12 +33,15 @@ private:
 protected:
 public:
 	Hero(Race race);
-	bool battle(Monster& monster);
-	void attack(Monster& monster);
-	const Inventory& getInventory() const;
-	void levelUp() override;
 	int getCurrentLevel() const;
 	void setCoordinates(int x, int y);
+	const Inventory& getInventory() const;
+
+	bool battle(Monster& monster);
+	void attack(Monster& monster);
+	
+	void levelUp() override;
+	
 	void takeTreasure(const Treasure& treasure);
 
 	friend ostream& operator<<(ostream& out, const Hero& hero);

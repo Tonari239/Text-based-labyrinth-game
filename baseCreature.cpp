@@ -1,5 +1,13 @@
 #include "baseCreature.h"
 
+BaseCreature::BaseCreature(int x, int y) : BaseEntity(x, y)
+{
+	mHealth = 0;
+	mMana = 0;
+	mPower = 0;
+	mSpellPower = 0;
+}
+
 
 double BaseCreature::getMana() const
 {
@@ -16,15 +24,9 @@ double BaseCreature::getPower() const
 	return mPower;
 }
 
-double BaseCreature::takeDamage(double damage, double defensePercentBonus)
+double BaseCreature::getSpellPower() const
 {
-	if (damage <= 0)
-	{
-		throw "Invalid operation, damage taken cannot be non-positive!";
-	}
-	double takenDamage = (1 - (defensePercentBonus) / 100) * damage;
-	mHealth -= takenDamage;
-	return takenDamage;
+	return mSpellPower;
 }
 
 void BaseCreature::setMana(double mana)
@@ -62,6 +64,16 @@ void BaseCreature::setPower(double power)
 	mPower = power;
 }
 
+void BaseCreature::setSpellPower(double spellPower)
+{
+	if (spellPower <= 0)
+	{
+		throw "Spell power cannot be negative!";
+	}
+	mSpellPower = spellPower;
+}
+
+
 double BaseCreature::castSpell(const Spell& spell)
 {
 	double damageToTake = getSpellPower() + getSpellPower() * spell.getPercentStat() / 100; // adding the bonus
@@ -84,21 +96,13 @@ double BaseCreature::physicalAttack(Weapon* weapon) const
 	return damageToTake;
 }
 
-BaseCreature::BaseCreature(int x, int y) : BaseEntity(x,y)
+double BaseCreature::takeDamage(double damage, double defensePercentBonus)
 {
-
-}
-
-double BaseCreature::getSpellPower() const
-{
-	return mSpellPower;
-}
-
-void BaseCreature::setSpellPower(double spellPower) 
-{
-	if (spellPower <= 0)
+	if (damage <= 0)
 	{
-		throw "Spell power cannot be negative!";
+		throw "Invalid operation, damage taken cannot be non-positive!";
 	}
-	mSpellPower = spellPower;
+	double takenDamage = (1 - (defensePercentBonus) / 100) * damage;
+	mHealth -= takenDamage;
+	return takenDamage;
 }

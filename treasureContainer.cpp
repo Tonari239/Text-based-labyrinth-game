@@ -1,51 +1,5 @@
 #include "treasureContainer.h"
 
-void TreasureContainer::copyFrom(const TreasureContainer& other)
-{
-	mCount = other.mCount;
-	mCapacity = other.mCapacity;
-	mData = new Treasure*[mCapacity];
-	for (int i = 0; i < mCount; i++)
-	{
-		mData[i]= other.mData[i]->clone();
-	}
-}
-
-void TreasureContainer::_free()
-{
-	for (int i = 0; i < mCount; i++)
-	{
-		delete mData[i];
-	}
-	delete[] mData;
-}
-
-
-
-void TreasureContainer::resizeAccordingly()
-{
-	if (mCount >= mCapacity * 3 / 4)
-	{
-		resize(2);
-	}
-	else if (mCount <= mCapacity * 1 / 4)
-	{
-		resize(1.0/ 2);
-	}
-}
-
-void TreasureContainer::resize(double multiplier)
-{
-	mCapacity *= multiplier;
-	Treasure** temp = new Treasure * [mCapacity];
-	for (int i = 0; i < mCount; i++)
-	{
-		temp[i] = mData[i];
-	}
-	delete[] mData; // tui go check-ni just in case
-	mData = temp;
-}
-
 
 
 TreasureContainer::TreasureContainer(int capacity) :mCapacity(capacity)
@@ -75,6 +29,55 @@ TreasureContainer& TreasureContainer::operator=(const TreasureContainer& other)
 }
 
 
+int TreasureContainer::getCount() const
+{
+	return mCount;
+}
+
+
+void TreasureContainer::copyFrom(const TreasureContainer& other)
+{
+	mCount = other.mCount;
+	mCapacity = other.mCapacity;
+	mData = new Treasure * [mCapacity];
+	for (int i = 0; i < mCount; i++)
+	{
+		mData[i] = other.mData[i]->clone();
+	}
+}
+
+void TreasureContainer::_free()
+{
+	for (int i = 0; i < mCount; i++)
+	{
+		delete mData[i];
+	}
+	delete[] mData;
+}
+
+void TreasureContainer::resizeAccordingly()
+{
+	if (mCount >= mCapacity * 3 / 4)
+	{
+		resize(2);
+	}
+	else if (mCount <= mCapacity * 1 / 4)
+	{
+		resize(1.0/ 2);
+	}
+}
+
+void TreasureContainer::resize(double multiplier)
+{
+	mCapacity *= multiplier;
+	Treasure** temp = new Treasure * [mCapacity];
+	for (int i = 0; i < mCount; i++)
+	{
+		temp[i] = mData[i];
+	}
+	delete[] mData; 
+	mData = temp;
+}
 
 
 void TreasureContainer::addTreasure(const Treasure& T)
@@ -82,8 +85,6 @@ void TreasureContainer::addTreasure(const Treasure& T)
 	resizeAccordingly();
 	mData[mCount++] = T.clone();
 }
-
-
 
 void TreasureContainer::removeIndex(int index)
 {
@@ -104,7 +105,6 @@ void TreasureContainer::removeIndex(int index)
 	resizeAccordingly();
 }
 
-
 const Treasure* TreasureContainer::getAt(int index) const
 {
 	if (index < 0 || index>mCount)
@@ -113,7 +113,6 @@ const Treasure* TreasureContainer::getAt(int index) const
 	}
 	return (mData[index]);
 }
-
 
 Treasure& TreasureContainer::operator[](int index)
 {
@@ -124,23 +123,18 @@ Treasure& TreasureContainer::operator[](int index)
 	return *mData[index];
 }
 
-
 Treasure TreasureContainer::operator[](int index) const
 {
 	return *getAt(index);
 }
 
-int TreasureContainer::getCount() const
-{
-	return mCount;
-}
 
 ostream& operator<<(ostream& out, const TreasureContainer& tc)
 {
-	out << tc.mCount;
+	out << tc.mCount <<endl;
 	for (int i = 0; i < tc.mCount; i++)
 	{
-		out << *tc.mData[i];
+		out << *tc.mData[i] <<endl;
 	}
 	return out;
 }
@@ -154,3 +148,4 @@ istream& operator>>(istream& in, TreasureContainer& tc)
 	}
 	return in;
 }
+

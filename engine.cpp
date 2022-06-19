@@ -28,7 +28,8 @@ void Engine::run()
 	cin.ignore();
 	gameEngine.visualizeMap();
 	cout << endl;
-	cout << "Enter help to see available commands." << endl;
+	cout << "Enter \"restore\" to restore previous session or";
+	cout << "help to see available commands." << endl;
 	while (true)
 	{
 		
@@ -75,8 +76,6 @@ void Engine::run()
 		}
 		else if (splitCommands[0] == "left" || splitCommands[0] == "right"|| splitCommands[0] == "up" || splitCommands[0] == "down")
 		{
-			
-			
 			try
 			{
 				gameEngine.moveHero(splitCommands[0]);
@@ -95,6 +94,10 @@ void Engine::run()
 		{
 			//every move will be stored in a backup file
 			gameEngine.restoreSession("backup.txt");
+		}
+		else if (splitCommands[0] == "" || splitCommands[0] == " ")
+		{
+
 		}
 		else
 		{

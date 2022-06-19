@@ -3,13 +3,45 @@
 
 using namespace std;
 
-void Grid::setCellValue(int row, int col, char value)
+Grid::Grid(int rows, int cols) :mRows(rows), mCols(cols)
 {
-	if (row <0 || row >mRows || col <0 || col > mCols)
+	mGrid = new Cell * [mRows];
+	for (int i = 0; i < mRows; i++)
 	{
-		throw "Out of bounds!";
+		mGrid[i] = new Cell[mCols];
 	}
-	mGrid[row][col].setSymbol(value);
+	populateGrid();
+}
+
+Grid::Grid(const Grid& other)
+{
+	copyFrom(other);
+}
+
+Grid::~Grid()
+{
+	_free();
+}
+
+Grid& Grid::operator=(const Grid& other)
+{
+	if (this != &other)
+	{
+		_free();
+		copyFrom(other);
+	}
+	return *this;
+}
+
+
+int Grid::getRows() const
+{
+	return mRows;
+}
+
+int Grid::getCols() const
+{
+	return mCols;
 }
 
 const Cell& Grid::getCell(int row, int col) const
@@ -21,32 +53,22 @@ const Cell& Grid::getCell(int row, int col) const
 	return mGrid[row][col];
 }
 
-void Grid::populateGrid()
+void Grid::setCellValue(int row, int col, char value)
 {
-	for (int i = 0; i < mRows; i++)
+	if (row <0 || row >mRows || col <0 || col > mCols)
 	{
-		for (int j = 0; j < mCols; j++)
-		{
-			bool isBorder = (i == 0 || i == mRows - 1 || j == 0 || j == mCols - 1);
-			bool isExit = (i == mRows - 2 && j == mCols - 1);
-			if (isBorder && !isExit) // we set question marks, because it is yet unexplored
-			{
-				setCellValue(i, j, '#'); 
-				
-			}
-		}
-		
+		throw "Out of bounds!";
 	}
+	mGrid[row][col].setSymbol(value);
 }
 
-Grid::Grid(int rows, int cols) :mRows(rows), mCols(cols)
+void Grid::markCellAsVisited(int row, int col)
 {
-	mGrid = new Cell * [mRows];
-	for (int i = 0; i < mRows; i++)
+	if (row <0 || row >mRows || col <0 || col > mCols)
 	{
-		mGrid[i] = new Cell[mCols];
+		throw "Out of bounds!";
 	}
-	populateGrid();
+	mGrid[row][col].markVisited();
 }
 
 void Grid::print() const
@@ -60,6 +82,7 @@ void Grid::print() const
 		cout << endl;
 	}
 }
+
 
 void Grid::_free()
 {
@@ -86,56 +109,47 @@ void Grid::copyFrom(const Grid& other)
 	}
 }
 
-int Grid::getRows() const
+void Grid::populateGrid()
 {
-	return mRows;
-}
-
-int Grid::getCols() const
-{
-	return mCols;
-}
-
-
-
-Grid::~Grid()
-{
-	_free();
-}
-
-Grid::Grid(const Grid& other)
-{
-	copyFrom(other);
-}
-
-Grid& Grid::operator=(const Grid& other)
-{
-	if (this != &other)
+	for (int i = 0; i < mRows; i++)
 	{
-		_free(); 
-		copyFrom(other);
+		for (int j = 0; j < mCols; j++)
+		{
+			bool isBorder = (i == 0 || i == mRows - 1 || j == 0 || j == mCols - 1);
+			bool isExit = (i == mRows - 2 && j == mCols - 1);
+			if (isBorder && !isExit) // we set question marks, because it is yet unexplored
+			{
+				setCellValue(i, j, '#');
+
+			}
+		}
+
 	}
-	return *this;
 }
 
-void Grid::markCellAsVisited(int row, int col)
-{
-	if (row <0 || row >mRows || col <0 || col > mCols)
-	{
-		throw "Out of bounds!";
-	}
-	mGrid[row][col].markVisited();
-}
+
+
+
+
+
+
+
+
+
+
+
+
 
 ostream& operator<<(ostream& out, const Grid& grid)
 {
-	out << grid.mRows << grid.mCols;
+	out << grid.mRows << ' ' << grid.mCols <<endl;
 	for (int i = 0; i < grid.mRows; i++)
 	{
 		for (int j = 0; j < grid.mCols; j++)
 		{
-			out << grid.mGrid[i][j] << endl;
+			out << grid.mGrid[i][j] ;
 		}
+		out << endl;
 	} 
 	return out;
 }

@@ -1,10 +1,22 @@
 #include "Map.h"
 #include <time.h>
 
-void Map::positionEntities()
+
+Map::Map(MapInfo initialMap) : mMonstersCount(initialMap.mMonstersCount),
+mTreasuresCount(initialMap.mTreasuresCount),
+mLevel(initialMap.mLevel), mGrid(initialMap.mRows,
+	initialMap.mCols)
 {
-	positionTreasures(mTreasuresCount);
-	positionMonsters(mMonstersCount);
+	positionEntities();
+}
+
+Map::Map(MapInfo previousPreviousMap, MapInfo previousMap)
+	: mMonstersCount(previousMap.mMonstersCount + previousPreviousMap.mMonstersCount),
+	mTreasuresCount(previousMap.mTreasuresCount + previousPreviousMap.mMonstersCount),
+	mLevel(previousMap.mLevel + 1), mGrid((previousMap.mRows + previousPreviousMap.mRows),
+		(previousMap.mCols + previousPreviousMap.mCols))
+{
+	positionEntities();
 }
 
 Map::Map(int level, int monstersCount, int treasuresCount,int rows,int cols) 
@@ -13,24 +25,12 @@ Map::Map(int level, int monstersCount, int treasuresCount,int rows,int cols)
 	positionEntities();
 }
 
-Map::Map(MapInfo initialMap) : mMonstersCount(initialMap.mMonstersCount),
-	mTreasuresCount(initialMap.mTreasuresCount),
-	mLevel(initialMap.mLevel), mGrid(initialMap.mRows,
-		initialMap.mCols)
+
+void Map::positionEntities()
 {
-	positionEntities();
+	positionTreasures(mTreasuresCount);
+	positionMonsters(mMonstersCount);
 }
-
-
-Map::Map(MapInfo previousPreviousMap, MapInfo previousMap)
-	: mMonstersCount(previousMap.mMonstersCount + previousPreviousMap.mMonstersCount),
-	mTreasuresCount(previousMap.mTreasuresCount + previousPreviousMap.mMonstersCount),
-	mLevel(previousMap.mLevel+1),mGrid((previousMap.mRows + previousPreviousMap.mRows),
-		(previousMap.mCols + previousPreviousMap.mCols))
-{
-	positionEntities();
-}
-
 
 void Map::positionTreasures(int count)
 {
@@ -90,6 +90,7 @@ void Map::positionMonsters(int count)
 	delete[] columns;
 }
 
+
 int Map::getLevel() const
 {
 	return mLevel;
@@ -115,17 +116,6 @@ int Map::getCols() const
 	return mGrid.getCols();
 }
 
-void Map::setEntityOnMap(int x, int y, char c)
-{
-	mGrid.setCellValue(x, y, c);
-}
-
-
-void Map::markCellAsVisited(int x, int y)
-{
-	mGrid.markCellAsVisited(x, y);
-}
-
 const Cell& Map::getCell(int x, int y) const
 {
 	return mGrid.getCell(x, y);
@@ -147,7 +137,7 @@ int Map::getMonsterIndexByCoordinates(int x, int y) const
 	return -1;
 }
 
-int Map::getTreasureIndexByCoordinates(int x,int y) const
+int Map::getTreasureIndexByCoordinates(int x, int y) const
 {
 	if (x<0 || y < 0 || x >mGrid.getRows() || y > mGrid.getCols())
 	{
@@ -163,19 +153,33 @@ int Map::getTreasureIndexByCoordinates(int x,int y) const
 	return -1;
 }
 
+
+void Map::setEntityOnMap(int x, int y, char c)
+{
+	mGrid.setCellValue(x, y, c);
+}
+
+
+void Map::markCellAsVisited(int x, int y)
+{
+	mGrid.markCellAsVisited(x, y);
+}
+
 void  Map::visualize() const
 {
 	mGrid.print();
 }
 
+
 ostream& operator<<(ostream& out, const Map& map)
 {
-	out << map.mLevel << map.mMonstersCount << map.mTreasuresCount;
-	out << map.mGrid; // ??
+	out << map.mLevel <<' ' << map.mMonstersCount << ' ' << map.mTreasuresCount <<endl;
+	out << map.mGrid;
 	out << map.mTreasures;
-	for (int i = 0; i < map.mMonstersCount; i++)
+	out << map.mMonstersCount << endl;
+	for (int i = 0; i < map.mMonsters.size(); i++)
 	{
-		out << map.mMonsters[i];
+		out << map.mMonsters[i] <<endl;
 	}
 	return out;
 }
@@ -183,8 +187,9 @@ ostream& operator<<(ostream& out, const Map& map)
 istream& operator>>(istream& in, Map& map)
 {
 	in >> map.mLevel >> map.mMonstersCount >> map.mTreasuresCount;
-	in >> map.mGrid; // ??
+	in >> map.mGrid; 
 	in >> map.mTreasures;
+	in >> map.mMonstersCount;
 	for (int i = 0; i < map.mMonstersCount; i++)
 	{
 		in >> map.mMonsters[i];
