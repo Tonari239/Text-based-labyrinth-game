@@ -12,8 +12,6 @@ public:
 	string getName() const override;
 	virtual Spell* clone() const override;
 
-	friend ostream& operator<<(ostream& out, const Spell& spell);
-	friend istream& operator>>(istream& in, Spell& spell);
 };
 
 
