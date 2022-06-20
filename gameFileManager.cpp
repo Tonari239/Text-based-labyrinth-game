@@ -59,7 +59,17 @@ void GameFileManager::open(string fileName,Hero& hero,Map& map)
 	}
 	else
 	{
-		cout << "File opening failed!"<<endl;
+		fstream newFile(fileName,ios::app);
+		cout << "Created file " << fileName <<"."<< endl;
+		try
+		{
+			newFile.close();
+		}
+		catch (const std::exception&)
+		{
+
+		}
+		
 	}
 	
 	

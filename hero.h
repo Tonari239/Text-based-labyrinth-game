@@ -24,6 +24,7 @@ private:
 	Race mRace;
 	int mCurrentLevel;
 	Inventory mInventory;
+	int maxMana;
 
 	
 	void initializeRaceStats();
@@ -41,7 +42,7 @@ public:
 	void attack(Monster& monster);
 	
 	void levelUp() override;
-	
+	void restoreManaPoint(double point);
 	void takeTreasure(const Treasure& treasure);
 
 	friend ostream& operator<<(ostream& out, const Hero& hero);

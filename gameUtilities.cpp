@@ -1,7 +1,7 @@
 #include "gameUtilities.h"
 #include <time.h>
-
 #include <iostream>
+
 
 Treasure* GameUtilities::generateTreasure(int x,int y,int level)
 {
@@ -20,3 +20,5 @@ Treasure* GameUtilities::generateTreasure(int x,int y,int level)
 		return new Weapon(x, y,level);
 	}
 }
+
+

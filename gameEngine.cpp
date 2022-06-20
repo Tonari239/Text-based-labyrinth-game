@@ -140,7 +140,7 @@ void GameEngine::generateMap()
 	int level = mHero.getCurrentLevel();
 	if (level == 1)
 	{
-		return;
+		mMap = Map(previousPreviousMapInfo);
 	}
 	else if (level == 2)
 	{
@@ -162,6 +162,7 @@ void GameEngine::act(int nextXCoordinate,int nextYCoordinate)
 	if (currentLevel == newLevel)
 	{
 		mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
+		mHero.restoreManaPoint(1);
 	}
 	
 	

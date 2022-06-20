@@ -7,6 +7,67 @@ Engine::Engine(GameEngine engine) : gameEngine(engine)
 
 }
 
+bool Engine::checkForBackUpFile(string fileName) const
+{
+	ifstream file(fileName);
+	bool fileExists=false;
+	if (file)
+	{
+		fileExists = true;
+	}
+
+	try
+	{
+		file.close();
+	}
+	catch (const std::exception&)
+	{
+
+	}
+	return fileExists;
+}
+
+void Engine::enterPassword(char* input, char encryptChar)
+{
+	char inputChar = '0';
+	int counter = 0;
+	while (inputChar != '\r')
+	{
+		inputChar = _getch(); // used with  #include <conio.h>
+		if (inputChar == '\b' && counter != 0)
+		{
+			input[counter] = '\0';
+			--counter;
+			cout << "\b";
+			cout << " "; // idea from https://stackoverflow.com/questions/3745861/how-to-remove-last-character-put-to-stdcout
+			cout << "\b";
+		}
+		else if (inputChar != '\r')
+		{
+			input[counter] = inputChar;
+			std::cout << encryptChar;
+			++counter;
+		}
+	}
+	input[counter] = '\0';
+	cout << endl;
+}
+
+bool Engine::authorize(const char* pass)
+{
+	bool isAuthorized = false;
+	cout << "Enter admin password:\n";
+	char input[MAX_LENGTH];
+	enterPassword(input, '*');
+	if (strcmp(pass, input) != 0)
+	{
+		cout << "Wrong password! Operation failed\n";
+		return isAuthorized;
+	}
+	isAuthorized = true;
+	return isAuthorized;
+}
+
 void Engine::printHelp() const
 {
 	system("CLS");
@@ -20,6 +81,7 @@ void Engine::printHelp() const
 	cout << "<direction>             |moves hero in selected direction - \"right\",\"left\",\"up\",\"down\"" << endl;
 	cout << "restore                 |restores level from previous session" << endl;
 	cout << "visualize               |visualizes current map" << endl;
+	cout << "generate                |generates new map after user enters admin password" << endl;
 }
 
 void Engine::run()
@@ -29,8 +91,13 @@ void Engine::run()
 	cin.ignore();
 	gameEngine.visualizeMap();
 	cout << endl;
-	cout << "Enter \"restore\" to restore previous session or";
-	cout << " \"help\" to see available commands." << endl;
+	bool backUpFileExists = checkForBackUpFile("backup.txt");
+	if (backUpFileExists)
+	{
+		cout << "Enter \"restore\" to restore previous session." <<endl;
+	}
+	
+	cout << "Enter \"help\" to see available commands." << endl;
 	while (true)
 	{
 		
@@ -71,6 +138,10 @@ void Engine::run()
 				{
 					gameEngine.mGameFileManager.save(gameEngine.mHero, gameEngine.mMap);
 				}
+				else if (c == 'n')
+				{
+					gameEngine.mGameFileManager.close();
+				}
 
 			}
 			throw -1;
@@ -95,10 +166,21 @@ void Engine::run()
 		{
 			//every move will be stored in a backup file
 			gameEngine.restoreSession("backup.txt");
+			gameEngine.visualizeMap();
 		}
 		else if (splitCommands[0] == "visualize")
 		{
 			gameEngine.visualizeMap();
+		}
+		else if (splitCommands[0] == "generate")
+		{
+			bool isAuthorized = authorize(ADMIN_PASSWORD);
+			if (isAuthorized)
+			{
+				cout << "Generating new map..." << endl;
+				gameEngine.generateMap();
+				cout << "Done! Enter \"visalize\" to see new map." << endl;
+			}
 		}
 		else if (splitCommands[0] == "" || splitCommands[0] == " ")
 		{

@@ -189,10 +189,11 @@ istream& operator>>(istream& in, Map& map)
 	in >> map.mLevel >> map.mMonstersCount >> map.mTreasuresCount;
 	in >> map.mGrid; 
 	in >> map.mTreasures;
-	/*in >> map.mMonstersCount;
+	in >> map.mMonstersCount;
+	map.mMonsters.clear();
 	for (int i = 0; i < map.mMonstersCount; i++)
 	{
 		in >> map.mMonsters[i];
-	}*/
+	}
 	return in;
 }

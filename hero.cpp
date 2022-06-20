@@ -46,6 +46,7 @@ void Hero::initializeRaceStats()
 		mSpellPower = 10;
 		mHealth = 50;
 	}
+	maxMana = mMana;
 }
 
 void Hero::attack(Monster& monster)
@@ -102,6 +103,7 @@ void Hero::distributeStats()
 	setSpellPower(getMana());
 	setPower(getPower() + power);
 	setHealth(getHealth() + health);
+	maxMana += mana;
 }
 
 bool Hero::battle(Monster& monster)
@@ -151,6 +153,7 @@ bool Hero::battle(Monster& monster)
 		if (restoredHealth >= initialHealth)
 		{
 			setHealth(initialHealth);
+			restoreManaPoint(1.0 / 2 * mMana);
 		}
 		else
 		{
@@ -186,6 +189,19 @@ void Hero::restoreStatsAfterBattle(double initialHealth, double initialMana, dou
 	double restoredMana = getMana() + initialMana * percentToRecover;
 	setHealth(restoredHealth);
 	setMana(restoredMana);
+}
+
+void Hero::restoreManaPoint(double point)
+{
+	if (mMana < maxMana)
+	{
+		mMana + point;
+	}
+	else
+	{
+		mMana = maxMana;
+	}
+	
 }
 
 void Hero::takeTreasure(const Treasure& treasure)
@@ -226,7 +242,7 @@ ostream& operator<<(ostream& out, const Hero& hero)
 {
 	//hero stats
 	out << hero.mCurrentLevel << ' ' << hero.mRace << ' ' << hero.mXCoordinate << ' ' << hero.mYCoordinate
-		<< ' ' << hero.mHealth << ' ' << hero.mMana << ' ' << hero.mPower << ' ' << hero.mSpellPower <<endl;
+		<< ' ' << hero.mHealth << ' ' << hero.mMana << ' ' << hero.mPower << ' ' << hero.mSpellPower <<' ' <<hero.maxMana << endl;
 
 	//hero inventory
 	out << hero.mInventory;
@@ -238,7 +254,7 @@ istream& operator>>(istream& in, Hero& hero)
 	//hero stats
 	int race;
 	in >> hero.mCurrentLevel >> race >> hero.mXCoordinate >> hero.mYCoordinate
-		>> hero.mHealth >> hero.mMana >> hero.mPower >> hero.mSpellPower;
+		>> hero.mHealth >> hero.mMana >> hero.mPower >> hero.mSpellPower >>hero.maxMana;
 	hero.mRace = (Race)race;
 
 	//hero inventory

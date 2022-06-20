@@ -22,7 +22,7 @@ int main()
 	{
 		engine.run();
 	}
-	catch (const std::exception&)
+	catch (int)
 	{
 		cout << "Exiting program...";
 		return -1;

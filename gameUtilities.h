@@ -9,6 +9,7 @@ class GameUtilities
 {
 public:
 	static Treasure* generateTreasure(int level, int x, int y);
+	
 };
 
 #endif
