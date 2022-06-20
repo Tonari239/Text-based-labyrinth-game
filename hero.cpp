@@ -108,7 +108,6 @@ bool Hero::battle(Monster& monster)
 {
 	system("CLS");
 	double initialHealth = getHealth();
-	double initialMana = getMana();
 	srand(time(NULL));
 	int heroAttacksFirst = rand() % 2; // 1 ->	hero, 0 -> dragon
 	if (heroAttacksFirst)
@@ -151,11 +150,10 @@ bool Hero::battle(Monster& monster)
 		if (restoredHealth >= initialHealth)
 		{
 			setHealth(initialHealth);
-			restoreManaPoint(1.0 / 2 * mMana);
 		}
 		else
 		{
-			restoreStatsAfterBattle(initialHealth, initialMana, 1.0 / 2);
+			restoreHealthAfterBattle(initialHealth, 1.0 / 2);
 		}
 		return 1;
 	}
@@ -181,12 +179,10 @@ int Hero::chooseAttackMethod() const
 	return choice;
 }
 
-void Hero::restoreStatsAfterBattle(double initialHealth, double initialMana, double percentToRecover)
+void Hero::restoreHealthAfterBattle(double initialHealth, double percentToRecover)
 {
 	double restoredHealth = getHealth() + initialHealth * percentToRecover;
-	double restoredMana = getMana() + initialMana * percentToRecover;
 	setHealth(restoredHealth);
-	setMana(restoredMana);
 }
 
 void Hero::restoreManaPoint(double point)

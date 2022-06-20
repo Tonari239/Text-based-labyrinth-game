@@ -29,7 +29,7 @@ private:
 	
 	void initializeRaceStats();
 	int chooseAttackMethod() const;
-	void restoreStatsAfterBattle(double initialHealth, double initialMana, double percentToRecover);
+	void restoreHealthAfterBattle(double initialHealth, double percentToRecover);
 	void distributeStats();
 protected:
 public:
