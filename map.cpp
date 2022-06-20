@@ -41,13 +41,15 @@ void Map::positionTreasures(int count)
 		int row = 0;
 		int column = 0;
 		char symbol;
+		bool isExit=false;
+		srand(time(NULL));
 		do
 		{ 
-			srand(time(NULL));
 			row = 1 + rand() % (mGrid.getRows() - 1);
 			column = 1 + rand() % (mGrid.getCols() - 1);
 			symbol = mGrid.getCell(row,column).getSymbol();
-		} while (symbol!='?');
+			bool isExit = (row == mGrid.getRows() - 1 && row == mGrid.getCols());
+		} while (symbol!='?' && !isExit);
 
 		int currentIndex = mTreasuresCount - count;
 		rows[currentIndex] = row;
@@ -70,10 +72,10 @@ void Map::positionMonsters(int count)
 		{
 			int row = 0;
 			int column = 0;
-
+			srand(time(NULL));
 			do
 			{
-				srand(time(NULL));
+				
 				row = 1 + rand() % (mGrid.getRows() - 1);
 				column = 1 + rand() % (mGrid.getCols() - 1);
 			} while (mGrid.getCell(row, column).isOccupied());
@@ -193,7 +195,9 @@ istream& operator>>(istream& in, Map& map)
 	map.mMonsters.clear();
 	for (int i = 0; i < map.mMonstersCount; i++)
 	{
-		in >> map.mMonsters[i];
+		Monster m;
+		in >> m;
+		map.mMonsters.push_back(m);
 	}
 	return in;
 }

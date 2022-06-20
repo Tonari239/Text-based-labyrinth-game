@@ -2,10 +2,28 @@
 #include "inputFormatter.cpp"
 
 
+
+Engine* Engine::mInstance = nullptr;
+
 Engine::Engine(GameEngine engine) : gameEngine(engine)
 {
 
 }
+
+Engine* Engine::getEngine(GameEngine engine)
+{
+	if (mInstance == nullptr)
+	{
+		mInstance = new Engine(engine);
+	}
+	return mInstance;
+}
+
+void Engine::free()
+{
+	delete mInstance;
+}
+
 
 bool Engine::checkForBackUpFile(string fileName) const
 {
@@ -177,9 +195,9 @@ void Engine::run()
 			bool isAuthorized = authorize(ADMIN_PASSWORD);
 			if (isAuthorized)
 			{
-				cout << "Generating new map..." << endl;
-				gameEngine.generateMap();
-				cout << "Done! Enter \"visalize\" to see new map." << endl;
+				cout << "Generating new level..." << endl;
+				gameEngine.generateLevel();
+				cout << "Done! Enter \"visualize\" to see new map." << endl;
 			}
 		}
 		else if (splitCommands[0] == "" || splitCommands[0] == " ")

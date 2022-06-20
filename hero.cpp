@@ -193,9 +193,9 @@ void Hero::restoreStatsAfterBattle(double initialHealth, double initialMana, dou
 
 void Hero::restoreManaPoint(double point)
 {
-	if (mMana < maxMana)
+	if (mMana+point <= maxMana)
 	{
-		mMana + point;
+		mMana += point;
 	}
 	else
 	{

@@ -9,10 +9,7 @@ GameEngine::GameEngine(const Hero& hero) :previousPreviousMapInfo(1, 2, 2, 10, 1
 
 void GameEngine::generateLevel()
 {
-	if (mHero.getCurrentLevel() != 1)
-	{
-		generateMap();
-	}
+	generateMap();
 	positionHeroAtStart();
 	++filesCount;
 	string fileName = "gameFile" +std::to_string(filesCount) + (string)".txt";
@@ -92,6 +89,7 @@ void GameEngine::determineactOnDirectionion(int x,int y)
 			if (result)
 			{
 				mMap.mMonsters.erase(mMap.mMonsters.begin() + monsterIndex);
+				--mMap.mMonstersCount;
 				mMap.setEntityOnMap(x, y, '.'); // monster is no longer on cell
 			}
 		}
@@ -174,6 +172,12 @@ void GameEngine::visualizeMap() const
 {
 	system("CLS");
 	mMap.visualize();
+
+	cout << endl;
+	cout << endl;
+	cout << "Health: " << mHero.getHealth() << endl;
+	cout << "Mana: " << mHero.getMana() << endl;
+
 }
 
 void GameEngine::restoreSession(string backUpFile)

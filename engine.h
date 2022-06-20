@@ -10,14 +10,23 @@
 class Engine
 {
 	GameEngine gameEngine;
+	static Engine* mInstance;
 
+	Engine(GameEngine gameEngine);
 
 	void enterPassword(char* input, char encryptChar);
 	bool authorize(const char* pass);
 	void printHelp() const;
 	bool checkForBackUpFile(string fileName) const;
 public:
-	Engine(GameEngine gameEngine);
+	Engine(const Engine& other) = delete;
+	Engine(Engine&& other) = delete;
+	Engine& operator=(const Engine& other) = delete;
+	Engine& operator=(Engine&& other) = delete;
+
+	static Engine* getEngine(GameEngine gameEngine);
+	static void free();
+
 	
 	void run();
 };

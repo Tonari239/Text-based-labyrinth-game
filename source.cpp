@@ -16,15 +16,17 @@ int main()
 	cout << "Loading map..." << endl;
 	GameEngine gameEngine(hero);
 
-	Engine engine(gameEngine);
+	Engine* engine = Engine::getEngine(gameEngine);
 
 	try
 	{
-		engine.run();
+		engine->run();
 	}
 	catch (int)
 	{
 		cout << "Exiting program...";
 		return -1;
 	}
+
+	engine->free();
 }

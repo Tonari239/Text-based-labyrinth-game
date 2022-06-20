@@ -1,8 +1,8 @@
 #include "spell.h"
 
 
-Spell::Spell(int x, int y, double percentStat, double manaCost, int level)
-	:Treasure(x, y, level, percentStat), mManaCost(manaCost)
+Spell::Spell(int x, int y, double percentStat, int level)
+	:Treasure(x, y, level, percentStat), mManaCost(5)
 {
 
 }

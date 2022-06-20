@@ -5,7 +5,6 @@
 
 Treasure* GameUtilities::generateTreasure(int x,int y,int level)
 {
-	srand(time(NULL));
 	int num = rand() % 3;
 	if (num==0)
 	{
