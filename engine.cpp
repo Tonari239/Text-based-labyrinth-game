@@ -198,8 +198,16 @@ void Engine::run()
 		else if (splitCommands[0] == "restore")
 		{
 			//every move will be stored in a backup file
-			gameEngine.restoreSession("backup.txt");
-			gameEngine.visualizeMap();
+			if (backUpFileExists)
+			{
+				gameEngine.restoreSession("backup.txt");
+				gameEngine.visualizeMap();
+			}
+			else
+			{
+				cout << "No  backup file found!" << endl;
+			}
+			
 		}
 		else if (splitCommands[0] == "visualize")
 		{
