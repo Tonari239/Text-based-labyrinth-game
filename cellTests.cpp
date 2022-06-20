@@ -46,4 +46,19 @@ TEST_SUITE("Cell tests")
         c.setVisitedStatus(false);
         CHECK(c.hasBeenVisited() == false);
     }
+
+    TEST_CASE("Mark visited")
+    {
+        Cell c;
+        c.markVisited();
+        CHECK(c.getSymbol() == '.');
+    }
+
+    TEST_CASE("Has been visited")
+    {
+        Cell c;
+        CHECK(c.hasBeenVisited() == false);
+        c.markVisited();
+        CHECK(c.hasBeenVisited() == true);
+    }
 }

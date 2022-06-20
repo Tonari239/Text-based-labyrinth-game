@@ -1,7 +1,7 @@
 #include "hero.h"
 
 
-Hero::Hero(Race race) :mInventory(Weapon(0, 0, mCurrentLevel), Spell(0, 0, mCurrentLevel), Armor(0, 0, 0, 0)), mRace(race), mCurrentLevel(1)
+Hero::Hero(Race race) :mInventory(Weapon(0, 0, mCurrentLevel), Spell(0, 0, mCurrentLevel), Armor(0, 0, 0)), mRace(race), mCurrentLevel(1)
 {
 	initializeRaceStats();
 }
@@ -29,24 +29,22 @@ void Hero::initializeRaceStats()
 	{
 		mPower = 30;
 		mMana = 20;
-		mSpellPower = 20;
 		mHealth = 50;
 	}
 	else if (mRace == 1)
 	{
 		mPower = 10;
 		mMana = 40;
-		mSpellPower = 40;
 		mHealth = 50;
 	}
 	else
 	{
 		mPower = 40;
 		mMana = 10;
-		mSpellPower = 10;
 		mHealth = 50;
 	}
 	maxMana = mMana;
+	mSpellPower = mMana;
 }
 
 void Hero::attack(Monster& monster)
@@ -223,15 +221,15 @@ void Hero::takeTreasure(const Treasure& treasure)
 		if (treasure.getName() == "spell")
 		{
 			
-			mInventory.setSpell(Spell(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel,treasure.getPercentStat()));
+			mInventory.setSpell(Spell(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel));
 		}
 		else if (treasure.getName() == "weapon")
 		{
-			mInventory.setWeapon(Weapon(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel, treasure.getPercentStat()));
+			mInventory.setWeapon(Weapon(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel));
 		}
 		else
 		{
-			mInventory.setArmor(Armor(treasure.getXCoordinate(),treasure.getYCoordinate(),mCurrentLevel, treasure.getPercentStat()));
+			mInventory.setArmor(Armor(treasure.getXCoordinate(),treasure.getYCoordinate(),mCurrentLevel));
 		}
 	}
 

@@ -1,7 +1,7 @@
 #include "inventory.h"
 
 
-Inventory::Inventory(Weapon weapon, Spell spell) : mWeapon(weapon), mSpell(spell), mArmor(-1, -1, 0.0)
+Inventory::Inventory(Weapon weapon, Spell spell) : mWeapon(weapon), mSpell(spell), mArmor(-1, -1, 0)
 {
 
 }

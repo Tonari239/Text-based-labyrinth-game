@@ -162,10 +162,6 @@ void GameEngine::act(int nextXCoordinate,int nextYCoordinate)
 		mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
 		mHero.restoreManaPoint(1);
 	}
-	
-	
-	
-	
 }
 
 void GameEngine::visualizeMap() const

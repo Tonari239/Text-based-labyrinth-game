@@ -14,7 +14,7 @@ TEST_SUITE("Armor")
 
 	TEST_CASE("Constructor with parameters")
 	{
-		Armor a(1,1,3,20);
+		Armor a(1,1,3);
 		CHECK(a.getXCoordinate() == 1);
 		CHECK(a.getYCoordinate() == 1);
 		CHECK(a.getPercentStat() == 24);
@@ -31,8 +31,8 @@ TEST_SUITE("Armor")
 	{
 		Armor a;
 		CHECK(a.getPercentStat() == 20);
-		Armor a2(1, 1, 1, 30);
-		CHECK(a2.getPercentStat() == 30);
+		Armor a2(1, 1, 2);
+		CHECK(a2.getPercentStat() == 22);
 	}
 
 	TEST_CASE("level up")

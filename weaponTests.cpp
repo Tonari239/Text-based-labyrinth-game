@@ -14,7 +14,7 @@ TEST_SUITE("Weapon")
 
 	TEST_CASE("Constructor with parameters")
 	{
-		Weapon w(1, 1, 3, 20);
+		Weapon w(1, 1, 3);
 		CHECK(w.getXCoordinate() == 1);
 		CHECK(w.getYCoordinate() == 1);
 		CHECK(w.getPercentStat() == 24);
@@ -31,8 +31,8 @@ TEST_SUITE("Weapon")
 	{
 		Weapon w;
 		CHECK(w.getPercentStat() == 20);
-		Weapon w2(1, 1, 1, 30);
-		CHECK(w2.getPercentStat() == 30);
+		Weapon w2(1, 1, 2);
+		CHECK(w2.getPercentStat() == 22);
 	}
 
 	TEST_CASE("level up")

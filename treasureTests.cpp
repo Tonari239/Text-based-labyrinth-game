@@ -14,10 +14,10 @@ TEST_SUITE("Treasure")
 
 	TEST_CASE("Constructor with parameters")
 	{
-		Treasure t(3, 3, 5,30);
+		Treasure t(3, 3, 5);
 		CHECK(t.getXCoordinate() == 3);
 		CHECK(t.getYCoordinate() == 3);
-		CHECK(t.getPercentStat() == 38);
+		CHECK(t.getPercentStat() == 28);
 	}
 
 	TEST_CASE("Get percent stat")

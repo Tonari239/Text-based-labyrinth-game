@@ -1,16 +1,17 @@
 #include "treasure.h"
 
 
-Treasure::Treasure(int x, int y, double percentStat, int level) :BaseEntity(x, y), mPercentStat(percentStat)
-{
-	for (int i = 1; i < level; i++)
-	{
-		levelUp();
-	}
-}
 
-Treasure::Treasure(int x, int y, int level) :BaseEntity(x, y), mPercentStat(20)
+Treasure::Treasure(int x, int y, int level) :BaseEntity(x, y)
 {
+	if (level == 0)
+	{
+		mPercentStat = 0;
+	}
+	else
+	{
+		mPercentStat = 20;
+	}
 	for (int i = 1; i < level; i++)
 	{
 		levelUp();
@@ -61,7 +62,13 @@ ostream& operator<<(ostream& out, const Treasure& treasure)
 
 istream& operator>>(istream& in, Treasure& treasure)
 {
-	in >> treasure.mXCoordinate >> treasure.mYCoordinate >> treasure.mPercentStat;
+	int level;
+	in >> treasure.mXCoordinate >> treasure.mYCoordinate >> level;
+	treasure.mPercentStat = 20;
+	for (int i = 1; i < level; i++)
+	{
+		treasure.levelUp();
+	}
 	return in;
 }
 
