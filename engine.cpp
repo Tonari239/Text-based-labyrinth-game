@@ -128,7 +128,14 @@ void Engine::run()
 		}
 		else if (splitCommands[0] == "open")
 		{
-			gameEngine.mGameFileManager.open(splitCommands[1],gameEngine.mHero,gameEngine.mMap);
+			if (splitCommands.size() == 1)
+			{
+				cout << "No file name specified!" << endl;
+			}
+			else
+			{
+				gameEngine.mGameFileManager.open(splitCommands[1], gameEngine.mHero, gameEngine.mMap);
+			}
 		}
 		else if (splitCommands[0] == "close")
 		{
@@ -140,7 +147,15 @@ void Engine::run()
 		}
 		else if (splitCommands[0] == "saveas")
 		{
-			gameEngine.mGameFileManager.saveAs(splitCommands[1],gameEngine.mHero,gameEngine.mMap);
+			if (splitCommands.size() == 1)
+			{
+				cout << "No file name specified!" << endl;
+			}
+			else
+			{
+				gameEngine.mGameFileManager.saveAs(splitCommands[1], gameEngine.mHero, gameEngine.mMap);
+			}
+			
 		}
 		else if (splitCommands[0] == "exit")
 		{

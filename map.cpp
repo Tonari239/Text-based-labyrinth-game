@@ -36,13 +36,14 @@ void Map::positionTreasures(int count)
 {
 	int* rows = new int[count]; // saving the coordinates of treasures as x,y pair
 	int* columns = new int[count];
+	srand(time(NULL));
 	for (int i = count; i > 0; i--)
 	{
 		int row = 0;
 		int column = 0;
 		char symbol;
 		bool isExit=false;
-		srand(time(NULL));
+		
 		do
 		{ 
 			row = 1 + rand() % (mGrid.getRows() - 1);
