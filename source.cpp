@@ -6,12 +6,12 @@ int main()
 {
 	cout << "Choose your hero's race!" << endl;
 	cout << "0 - human, 1 - mage, 2 -warrior" << endl;
-	int race;
+	char race;
 	do
 	{
 		cin >> race;
-	} while (race < 0 && race >2);
-	Hero hero((Race)race);
+	} while (race!='0' && race!='1' && race!='2');
+	Hero hero((Race)(race-'0'));
 	system("CLS");
 	cout << "Loading map..." << endl;
 	GameEngine gameEngine(hero);
