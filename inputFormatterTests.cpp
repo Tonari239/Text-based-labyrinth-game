@@ -8,21 +8,21 @@ TEST_SUITE("Input formatter")
 		string test = "Ivan Pesho Viki Minko Maria";
 		vector<string> splitResult = InputFormatter::splitStringByDelimiter(test,' ');
 		CHECK(splitResult[0] == "Ivan");
-		CHECK(splitResult[0] == "Pesho");
-		CHECK(splitResult[0] == "Viki");
-		CHECK(splitResult[0] == "Minko");
-		CHECK(splitResult[0] == "Maria");
+		CHECK(splitResult[1] == "Pesho");
+		CHECK(splitResult[2] == "Viki");
+		CHECK(splitResult[3] == "Minko");
+		CHECK(splitResult[4] == "Maria");
 	}
 
 	TEST_CASE("Split by comma")
 	{
 		string test = "Ivan,Pesho,Viki,Minko,Maria";
-		vector<string> splitResult = InputFormatter::splitStringByDelimiter(test, ' ');
+		vector<string> splitResult = InputFormatter::splitStringByDelimiter(test, ',');
 		CHECK(splitResult[0] == "Ivan");
-		CHECK(splitResult[0] == "Pesho");
-		CHECK(splitResult[0] == "Viki");
-		CHECK(splitResult[0] == "Minko");
-		CHECK(splitResult[0] == "Maria");
+		CHECK(splitResult[1] == "Pesho");
+		CHECK(splitResult[2] == "Viki");
+		CHECK(splitResult[3] == "Minko");
+		CHECK(splitResult[4] == "Maria");
 	}
 
 	TEST_CASE("Empty string")

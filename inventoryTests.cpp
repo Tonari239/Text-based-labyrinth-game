@@ -10,7 +10,7 @@ TEST_SUITE("Inventory")
 		Inventory inv(weapon, spell);
 
 		CHECK(inv.getSpell().getXCoordinate() == 3);
-		CHECK(inv.getSpell().getXCoordinate() == 1);
+		CHECK(inv.getSpell().getYCoordinate() == 1);
 		CHECK(inv.getWeapon().getPercentStat() == 22);
 	}
 
@@ -22,7 +22,7 @@ TEST_SUITE("Inventory")
 		Inventory inv(weapon, spell,armor);
 
 		CHECK(inv.getSpell().getXCoordinate() == 3);
-		CHECK(inv.getSpell().getXCoordinate() == 1);
+		CHECK(inv.getSpell().getYCoordinate() == 1);
 		CHECK(inv.getWeapon().getPercentStat() == 22);
 		CHECK(inv.getArmor().getXCoordinate() == 4);
 		CHECK(inv.getArmor().getPercentStat() == 24);
