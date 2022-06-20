@@ -17,7 +17,7 @@ class GameEngine
 	void positionHeroAtStart();
 	void generateMap();
 	void collectTreasure(int x, int y);
-	void determineactOnDirectionion(int x,int y);
+	void determineActOnDirection(int x,int y);
 	bool destinationIsWall(int x,int y) const;
 	bool destinationIsTreasure(int x,int y) const;
 	bool destinationIsMonster(int x,int y) const;

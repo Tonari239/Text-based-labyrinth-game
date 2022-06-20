@@ -73,7 +73,7 @@ void GameEngine::actOnDirection(int xOldCoordinate, int yOldCoordinate, int xNew
 	}
 }
 
-void GameEngine::determineactOnDirectionion(int x,int y)
+void GameEngine::determineActOnDirection(int x,int y)
 {
 	if (destinationIsTreasure(x, y))
 	{
@@ -155,7 +155,7 @@ void GameEngine::act(int nextXCoordinate,int nextYCoordinate)
 {
 	int currentLevel = mHero.getCurrentLevel();
 	mHero.setCoordinates(nextXCoordinate, nextYCoordinate);
-	determineactOnDirectionion(mHero.getXCoordinate(), mHero.getYCoordinate());
+	determineActOnDirection(mHero.getXCoordinate(), mHero.getYCoordinate());
 	int newLevel = mHero.getCurrentLevel();
 	if (currentLevel == newLevel)
 	{
