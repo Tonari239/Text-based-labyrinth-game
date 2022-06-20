@@ -2,7 +2,7 @@
 #include "engine.h"
 
 
-/*int main()
+int main()
 {
 	cout << "Choose your hero's race!" << endl;
 	cout << "0 - human, 1 - mage, 2 -warrior" << endl;
@@ -30,4 +30,3 @@
 
 	engine->free();
 }
-*/
