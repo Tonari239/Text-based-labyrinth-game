@@ -33,7 +33,7 @@ void GameFileManager::setUnsavedChanges(bool status)
 
 void GameFileManager::setFileName(string name)
 {
-	name = mCurentFileName;
+	mCurentFileName=name;
 }
 
 
@@ -41,28 +41,27 @@ void GameFileManager::open(string fileName,Hero& hero,Map& map)
 {
 	setFileName(fileName);
 	setFileIsOpenStatus(true);
-	ifstream file;
+	ifstream file(fileName);
+
+	if (file)
+	{
+		file >> hero;
+		file >> map;
+		cout << "Successfully opened " << fileName<<endl;
+		try
+		{
+			file.close();
+		}
+		catch (const std::exception&)
+		{
+
+		}
+	}
+	else
+	{
+		cout << "File opening failed!"<<endl;
+	}
 	
-	try
-	{
-		file.open(fileName);
-	}
-	catch (const std::exception&)
-	{
-		cout << "File opening failed!" << endl;
-	}
-
-	file >> hero;
-	file >> map;
-	cout << "Successfully opened " << fileName;
-	try
-	{
-		file.close();
-	}
-	catch (const std::exception&)
-	{
-
-	}
 	
 }
 

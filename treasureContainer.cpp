@@ -134,6 +134,18 @@ ostream& operator<<(ostream& out, const TreasureContainer& tc)
 	out << tc.mCount <<endl;
 	for (int i = 0; i < tc.mCount; i++)
 	{
+		if (tc.getAt(i)->getName() == "weapon")
+		{
+			out << 'w' << ' ';
+		}
+		else if (tc.getAt(i)->getName() == "armor")
+		{
+			out << 'a' << ' ';
+		}
+		else if (tc.getAt(i)->getName() == "spell")
+		{
+			out << 's' << ' ';
+		}
 		out << *tc.mData[i] <<endl;
 	}
 	return out;
@@ -141,9 +153,36 @@ ostream& operator<<(ostream& out, const TreasureContainer& tc)
 
 istream& operator>>(istream& in, TreasureContainer& tc)
 {
+	if (tc.mCount != 0)
+	{
+		for (int i = 0; i < tc.mCount; i++)
+		{
+			delete tc.mData[i];
+		}
+		delete[] tc.mData;
+	}
 	in >> tc.mCount;
+	while (tc.mCount>=tc.mCapacity)
+	{
+		tc.mCapacity *= 2;
+	}
+	tc.mData = new Treasure * [tc.mCapacity];
+	char label;
 	for (int i = 0; i < tc.mCount; i++)
 	{
+		in >> label;
+		if (label == 'w')
+		{
+			tc.mData[i] = new Weapon(-1,-1,1);
+		}
+		else if (label == 'a')
+		{
+			tc.mData[i] = new Armor(-1, -1, 1);
+		}
+		else if (label == 's')
+		{
+			tc.mData[i] = new Spell(-1, -1, 1);
+		}
 		in >> *tc.mData[i];
 	}
 	return in;

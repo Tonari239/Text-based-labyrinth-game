@@ -131,15 +131,6 @@ void Grid::populateGrid()
 
 
 
-
-
-
-
-
-
-
-
-
 ostream& operator<<(ostream& out, const Grid& grid)
 {
 	out << grid.mRows << ' ' << grid.mCols <<endl;
@@ -147,7 +138,7 @@ ostream& operator<<(ostream& out, const Grid& grid)
 	{
 		for (int j = 0; j < grid.mCols; j++)
 		{
-			out << grid.mGrid[i][j] ;
+			out << grid.mGrid[i][j];
 		}
 		out << endl;
 	} 
@@ -156,10 +147,23 @@ ostream& operator<<(ostream& out, const Grid& grid)
 
 istream& operator>>(istream& in, Grid& grid)
 {
+
+	if (grid.mRows != 0 && grid.mCols != 0)
+	{
+		for (int i = 0; i < grid.mRows; i++)
+		{
+			delete[] grid.mGrid[i];
+		}
+		delete[] grid.mGrid;
+		
+	}
 	in >> grid.mRows;
 	in >> grid.mCols;
+
+	grid.mGrid = new Cell * [grid.mRows];
 	for (int i = 0; i < grid.mRows; i++)
 	{
+		grid.mGrid[i] = new Cell[grid.mCols];
 		for (int j = 0; j < grid.mCols; j++)
 		{
 			in >> grid.mGrid[i][j];

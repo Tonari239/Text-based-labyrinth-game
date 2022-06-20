@@ -2,7 +2,9 @@
 #define __TREASURE_CONTAINER_H
 #define DEFAULT_CAPACITY 4
 
-#include "treasure.h"
+#include "spell.h"
+#include "armor.h"
+#include "weapon.h"
 
 using namespace std;
 

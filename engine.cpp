@@ -19,6 +19,7 @@ void Engine::printHelp() const
 	cout << "exit                    |exists program" << endl;
 	cout << "<direction>             |moves hero in selected direction - \"right\",\"left\",\"up\",\"down\"" << endl;
 	cout << "restore                 |restores level from previous session" << endl;
+	cout << "visualize               |visualizes current map" << endl;
 }
 
 void Engine::run()
@@ -29,7 +30,7 @@ void Engine::run()
 	gameEngine.visualizeMap();
 	cout << endl;
 	cout << "Enter \"restore\" to restore previous session or";
-	cout << "help to see available commands." << endl;
+	cout << " \"help\" to see available commands." << endl;
 	while (true)
 	{
 		
@@ -94,6 +95,10 @@ void Engine::run()
 		{
 			//every move will be stored in a backup file
 			gameEngine.restoreSession("backup.txt");
+		}
+		else if (splitCommands[0] == "visualize")
+		{
+			gameEngine.visualizeMap();
 		}
 		else if (splitCommands[0] == "" || splitCommands[0] == " ")
 		{
