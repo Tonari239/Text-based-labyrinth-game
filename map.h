@@ -20,7 +20,7 @@ class Map
 	void positionEntities();
 public:
 	Map(MapInfo initialMap);
-	Map(MapInfo previousMap, MapInfo previousPreviousMap);
+	Map(MapInfo previousPreviousMap, MapInfo previousMap);
 	Map(int level, int monstersCount, int treasuresCount, int rows, int cols);
 
 	void positionTreasures(int count);
