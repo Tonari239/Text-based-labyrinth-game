@@ -33,64 +33,64 @@ void  GameEngine::positionHeroAtStart()
 void  GameEngine::moveHero(string direction)
 {
 	int initialLevel = mHero.getCurrentLevel();
-	bool isNotLevelledUp=true;
+	bool isNotLevelledUp = true;
 	if (direction != "left" && direction != "right" && direction != "up" && direction != "down")
 	{
-		cout <<"Invalid direction! No actOnDirectionion taken.";
+		cout <<"Invalid direction! No action taken.";
 		return;
 	}
-	int xOldCoordinate = mHero.getXCoordinate();
-	int yOldCoordinate = mHero.getYCoordinate();
+	int oldXCoordinate = mHero.getXCoordinate();
+	int oldYCoordinate = mHero.getYCoordinate();
 	if (direction == "left")
 	{
-		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate, yOldCoordinate - 1, initialLevel);
+		actOnDirection(oldXCoordinate, oldYCoordinate, oldXCoordinate, oldYCoordinate - 1, initialLevel);
 	}
 	else if (direction == "right")
 	{
-		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate, yOldCoordinate+1, initialLevel);
+		actOnDirection(oldXCoordinate, oldYCoordinate, oldXCoordinate, oldYCoordinate +1, initialLevel);
 	}
 	else if (direction == "up")
 	{
-		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate - 1, yOldCoordinate, initialLevel);
+		actOnDirection(oldXCoordinate, oldYCoordinate, oldXCoordinate - 1, oldYCoordinate, initialLevel);
 	}
 	else if (direction == "down")
 	{
-		actOnDirection(xOldCoordinate, yOldCoordinate, xOldCoordinate + 1, yOldCoordinate, initialLevel);
+		actOnDirection(oldXCoordinate, oldYCoordinate, oldXCoordinate + 1, oldYCoordinate, initialLevel);
 	} 
 }
 
-void GameEngine::actOnDirection(int xOldCoordinate, int yOldCoordinate, int xNewCoordinate, int yNewCoordinate,int initialLevel)
+void GameEngine::actOnDirection(int oldXCoordinate, int oldYCoordinate, int newXCoordinate, int newYCoordinate,int initialLevel)
 {
-	bool destIsWall = destinationIsWall(xNewCoordinate,yNewCoordinate);
+	bool destIsWall = destinationIsWall(newXCoordinate,newYCoordinate);
 	if (!destIsWall)
 	{
-		act(xNewCoordinate,yNewCoordinate);
+		act(newXCoordinate,newYCoordinate);
 		bool isNotLevelledUp = mHero.getCurrentLevel() == initialLevel;
 		if (isNotLevelledUp)
 		{
-			mMap.markCellAsVisited(xOldCoordinate, yOldCoordinate);
+			mMap.markCellAsVisited(oldXCoordinate, oldYCoordinate);
 		}
 	}
 }
 
-void GameEngine::determineActOnDirection(int x,int y)
+void GameEngine::determineActOnDirection(int xCoordinate,int yCoordinate)
 {
-	if (destinationIsTreasure(x, y))
+	if (destinationIsTreasure(xCoordinate, yCoordinate))
 	{
 		system("CLS");
 		collectTreasure(x,y);
 	}
-	else if (destinationIsMonster(x, y))
+	else if (destinationIsMonster(xCoordinate, yCoordinate))
 	{
 		try
 		{
-			int monsterIndex = mMap.getMonsterIndexByCoordinates(x, y);
-			bool result = mHero.battle(mMap.mMonsters[monsterIndex]);
-			if (result)
+			int monsterIndex = mMap.getMonsterIndexByCoordinates(xCoordinate, yCoordinate);
+			bool fightResult = mHero.battle(mMap.mMonsters[monsterIndex]);
+			if (fightResult) // 1 if hero wins
 			{
 				mMap.mMonsters.erase(mMap.mMonsters.begin() + monsterIndex);
 				--mMap.mMonstersCount;
-				mMap.setEntityOnMap(x, y, '.'); // monster is no longer on cell
+				mMap.setEntityOnMap(xCoordinate, yCoordinate, '.'); // monster is no longer on cell
 			}
 		}
 		catch (int)
@@ -99,38 +99,38 @@ void GameEngine::determineActOnDirection(int x,int y)
 		}
 		
 	}
-	else if (destinationIsExit(x, y))
+	if (destinationIsExit(xCoordinate, yCoordinate))
 	{
 		mHero.levelUp();
 		generateLevel();
 	}
 }
 
-void GameEngine::collectTreasure(int x, int y)
+void GameEngine::collectTreasure(int xCoordinate, int yCoordinate)
 {
-	int treasureIndex = mMap.getTreasureIndexByCoordinates(x, y);
+	int treasureIndex = mMap.getTreasureIndexByCoordinates(xCoordinate, yCoordinate);
 	mHero.takeTreasure(*mMap.mTreasures.getAt(treasureIndex));
 	mMap.mTreasures.removeIndex(treasureIndex);
 }
 
-bool GameEngine::destinationIsWall(int x, int y) const
+bool GameEngine::destinationIsWall(int xCoordinate, int yCoordinate) const
 {
-	return mMap.getCell(x, y).getSymbol() == '#';
+	return mMap.getCell(xCoordinate, yCoordinate).getSymbol() == '#';
 }
 
-bool GameEngine::destinationIsTreasure(int x, int y) const
+bool GameEngine::destinationIsTreasure(int xCoordinate, int yCoordinate) const
 {
-	return mMap.getCell(x, y).getSymbol() == 'T';
+	return mMap.getCell(xCoordinate, yCoordinate).getSymbol() == 'T';
 }
 
-bool GameEngine::destinationIsMonster(int x, int y) const
+bool GameEngine::destinationIsMonster(int xCoordinate, int yCoordinate) const
 {
-	return mMap.getCell(x, y).getSymbol() == 'M';
+	return mMap.getCell(xCoordinate, yCoordinate).getSymbol() == 'M';
 }
 
-bool GameEngine::destinationIsExit(int x, int y) const
+bool GameEngine::destinationIsExit(int xCoordinate, int yCoordinate) const
 {
-	return x == mMap.getRows() - 2 && y == mMap.getCols() - 1;
+	return xCoordinate == mMap.getRows() - 2 && yCoordinate == mMap.getCols() - 1;
 }
 
 void GameEngine::generateMap()
@@ -160,7 +160,8 @@ void GameEngine::act(int nextXCoordinate,int nextYCoordinate)
 	if (currentLevel == newLevel)
 	{
 		mMap.mGrid.setCellValue(nextXCoordinate, nextYCoordinate, 'H');
-		mHero.restoreManaPoint(1);
+		int manaPointRestoredPerMove = 1;
+		mHero.restoreManaPoint(manaPointRestoredPerMove);
 	}
 }
 
@@ -185,7 +186,6 @@ void GameEngine::restoreSession(string backUpFile)
 	{
 		file.close();
 	}
-	
 }
 
 void GameEngine::saveSession(string backUpFile)

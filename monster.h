@@ -8,7 +8,7 @@
 class Hero;
 class Monster :public BaseCreature
 {
-	double mScaleDefensePercent=15;
+	double mScaleDefensePercent;
 	Spell mSpell;
 
 	void setInitialStats();

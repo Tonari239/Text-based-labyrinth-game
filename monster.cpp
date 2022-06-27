@@ -1,7 +1,7 @@
 #include "monster.h"
 
 
-Monster::Monster(int x,int y,int level) :BaseCreature(x,y),mSpell(x,y,level)
+Monster::Monster(int x,int y,int level) :BaseCreature(x,y),mSpell(x,y,level), mScaleDefensePercent(15)
 {
 	setInitialStats();
 	for (int i = 1; i < level; i++)

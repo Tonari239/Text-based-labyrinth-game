@@ -16,13 +16,13 @@ class GameEngine
 
 	void positionHeroAtStart();
 	void generateMap();
-	void collectTreasure(int x, int y);
-	void determineActOnDirection(int x,int y);
-	bool destinationIsWall(int x,int y) const;
-	bool destinationIsTreasure(int x,int y) const;
-	bool destinationIsMonster(int x,int y) const;
-	bool destinationIsExit(int x,int y) const;
-	void act(int x, int y);
+	void collectTreasure(int xCoordinate, int yCoordinate);
+	void determineActOnDirection(int xCoordinate,int yCoordinate);
+	bool destinationIsWall(int xCoordinate,int yCoordinate) const;
+	bool destinationIsTreasure(int xCoordinate,int yCoordinate) const;
+	bool destinationIsMonster(int xCoordinate,int yCoordinate) const;
+	bool destinationIsExit(int xCoordinate,int yCoordinate) const;
+	void act(int xCoordinate, int yCoordinate);
 
 public:
 	GameFileManager mGameFileManager;
@@ -32,7 +32,7 @@ public:
 	void generateLevel();
 	void updatePreviousMapInfo(Map currentMap);
 	void visualizeMap() const;
-	void actOnDirection(int xOldCoordinate, int yOldCorodinate, int xNewCoordinate, int yNewCoordinate,int initialLevel);
+	void actOnDirection(int oldXCorodinate, int oldYCorodinate, int newXCoordinate, int newYCoordinate,int initialLevel);
 	
 	void restoreSession(string backUpFile);
 	void saveSession(string backUpFile);

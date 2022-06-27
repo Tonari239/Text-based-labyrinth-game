@@ -15,8 +15,6 @@ vector<string> InputFormatter::splitStringByDelimiter(string input, char delimit
 	}
 	result.push_back(input.substr(0, stringLength));
 	return result;
-
-
 }
 
 int InputFormatter::getDelimiterCount(string input, char delimiter)

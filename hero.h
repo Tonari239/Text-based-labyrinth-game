@@ -1,6 +1,6 @@
 #ifndef __HERO_H
 #define __HERO_H
-
+#define HEALTH_RESTORATION_PERCENT 1.0/2
 
 #include <iostream>
 
@@ -35,7 +35,7 @@ protected:
 public:
 	Hero(Race race);
 	int getCurrentLevel() const;
-	void setCoordinates(int x, int y);
+	void setCoordinates(int xCoordinate, int yCoordinate);
 	const Inventory& getInventory() const;
 
 	bool battle(Monster& monster);

@@ -59,11 +59,11 @@ void TreasureContainer::resizeAccordingly()
 {
 	if (mCount >= mCapacity * 3 / 4)
 	{
-		resize(2);
+		resize(SIZE_UP_CAPACITY_MULTIPLIER);
 	}
 	else if (mCount <= mCapacity * 1 / 4)
 	{
-		resize(1.0/ 2);
+		resize(SIZE_DOWN_CAPACITY_MULTIPLIER);
 	}
 }
 

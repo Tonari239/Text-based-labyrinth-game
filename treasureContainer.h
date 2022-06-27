@@ -1,6 +1,8 @@
 #ifndef __TREASURE_CONTAINER_H
 #define __TREASURE_CONTAINER_H
 #define DEFAULT_CAPACITY 4
+#define SIZE_UP_CAPACITY_MULTIPLIER 2
+#define SIZE_DOWN_CAPACITY_MULTIPLIER 1.0/2
 
 #include "spell.h"
 #include "armor.h"

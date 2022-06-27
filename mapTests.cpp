@@ -9,7 +9,7 @@ TEST_SUITE("Map")
 	MapInfo firstLevel = { 1, 2, 2, 10, 10 };
 	MapInfo secondLevel = { 2,3,2,15,10 };
 
-	TEST_CASE("Constructor with one Map info")
+	TEST_CASE("Constructor with one MapInfo")
 	{
 		Map map(firstLevel);
 		
@@ -20,7 +20,7 @@ TEST_SUITE("Map")
 		CHECK(map.getCols() == 10);
 	}
 
-	TEST_CASE("Constructor with two Map infos")
+	TEST_CASE("Constructor with two MapInfos")
 	{
 		
 		Map map(firstLevel,secondLevel);
@@ -80,20 +80,20 @@ TEST_SUITE("Map")
 	}
 
 
-	TEST_CASE("Get cell throws exception when out of range")
+	TEST_CASE("Get cell throws exception when out of bounds")
 	{
 		Map map(firstLevel);
 		CHECK_THROWS(map.getCell(30, 3));
 	}
 
 	
-	TEST_CASE("Get treasure index by coordinate throws exception when out of range")
+	TEST_CASE("Get treasure index by coordinate throws exception when out of bounds")
 	{
 		Map map(firstLevel);
 		CHECK_THROWS(map.getTreasureIndexByCoordinates(-3, 26));
 	}
 
-	TEST_CASE("Get monster index by coordinate throws exception when out of range")
+	TEST_CASE("Get monster index by coordinate throws exception when out of bounds")
 	{
 		Map map(firstLevel);
 		CHECK_THROWS(map.getMonsterIndexByCoordinates(-3, 26));

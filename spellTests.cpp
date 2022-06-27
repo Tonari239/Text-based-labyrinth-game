@@ -40,7 +40,7 @@ TEST_SUITE("Spell")
 		CHECK(s2.getPercentStat() == 24);
 	}
 
-	TEST_CASE("level up")
+	TEST_CASE("Level up")
 	{
 		Spell s;
 		s.levelUp();

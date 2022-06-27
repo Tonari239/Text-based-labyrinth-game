@@ -117,7 +117,7 @@ void Grid::populateGrid()
 		{
 			bool isBorder = (i == 0 || i == mRows - 1 || j == 0 || j == mCols - 1);
 			bool isExit = (i == mRows - 2 && j == mCols - 1);
-			if (isBorder && !isExit) // we set question marks, because it is yet unexplored
+			if (isBorder && !isExit) // we set border 
 			{
 				setCellValue(i, j, '#');
 

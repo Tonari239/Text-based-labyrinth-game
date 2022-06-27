@@ -146,7 +146,7 @@ int Map::getTreasureIndexByCoordinates(int x, int y) const
 	{
 		throw "Out of bounds!";
 	}
-	for (int i = 0; i < mMonstersCount; i++)
+	for (int i = 0; i < mTreasuresCount; i++)
 	{
 		if (mTreasures[i].getXCoordinate() == x && mTreasures[i].getYCoordinate() == y)
 		{

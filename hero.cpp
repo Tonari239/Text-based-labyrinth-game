@@ -16,10 +16,10 @@ const Inventory& Hero::getInventory() const
 	return mInventory;
 }
 
-void Hero::setCoordinates(int x, int y)
+void Hero::setCoordinates(int xCoordinate, int yCoordinate)
 {
-	mXCoordinate = x;
-	mYCoordinate = y;
+	mXCoordinate = xCoordinate;
+	mYCoordinate = yCoordinate;
 }
 
 
@@ -98,10 +98,10 @@ void Hero::distributeStats()
 		cin >> power >> mana >> health;
 	}
 	setMana(getMana() + mana);
-	setSpellPower(getMana());
 	setPower(getPower() + power);
 	setHealth(getHealth() + health);
 	maxMana += mana;
+	mSpellPower += mana;
 }
 
 bool Hero::battle(Monster& monster)
@@ -109,7 +109,7 @@ bool Hero::battle(Monster& monster)
 	system("CLS");
 	double initialHealth = getHealth();
 	srand(time(NULL));
-	int heroAttacksFirst = rand() % 2; // 1 ->	hero, 0 -> dragon
+	int heroAttacksFirst = rand() % 2; // 1 ->	hero, 0 -> monster
 	if (heroAttacksFirst)
 	{
 		
@@ -146,14 +146,14 @@ bool Hero::battle(Monster& monster)
 	
 	if (monster.getHealth() <= 0)
 	{
-		double restoredHealth = getHealth() + initialHealth * 1.0 / 2;
+		double restoredHealth = getHealth() + initialHealth * HEALTH_RESTORATION_PERCENT;
 		if (restoredHealth >= initialHealth)
 		{
 			setHealth(initialHealth);
 		}
 		else
 		{
-			restoreHealthAfterBattle(initialHealth, 1.0 / 2);
+			restoreHealthAfterBattle(initialHealth, HEALTH_RESTORATION_PERCENT);
 		}
 		return 1;
 	}
@@ -169,14 +169,14 @@ int Hero::chooseAttackMethod() const
 {
 	cout << "Choose your attack type!" << endl;
 	cout << "\'0\' for physical attack or \'1\' for spell" << endl;
-	int choice;
+	char choice;
 	cin >> choice;
-	while (choice!=0 && choice!=1)
+	while (choice!='0' && choice != '1')
 	{
 		cin >> choice;
 	}
 	
-	return choice;
+	return choice-'0';
 }
 
 void Hero::restoreHealthAfterBattle(double initialHealth, double percentToRecover)
@@ -201,14 +201,14 @@ void Hero::restoreManaPoint(double point)
 void Hero::takeTreasure(const Treasure& treasure)
 {
 	cout << "You found " << treasure.getName() << ". Would you like to keep it?: y/n" << endl;
-	char c;
-	cin >> c;
-	while (c!='y' && c!='n')
+	char answer;
+	cin >> answer;
+	while (answer !='y' && answer !='n')
 	{
-		cout << "Invalid input!Try again." << endl;
-		cin >> c;
+		cout << "Invalid input! Try again." << endl;
+		cin >> answer;
 	}
-	if (c == 'n')
+	if (answer == 'n')
 	{
 		return;
 	}
@@ -216,7 +216,6 @@ void Hero::takeTreasure(const Treasure& treasure)
 	{
 		if (treasure.getName() == "spell")
 		{
-			
 			mInventory.setSpell(Spell(treasure.getXCoordinate(), treasure.getYCoordinate(), mCurrentLevel));
 		}
 		else if (treasure.getName() == "weapon")

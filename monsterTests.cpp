@@ -80,7 +80,7 @@ TEST_SUITE("Monster")
 		CHECK(h.getHealth() != 50);
 	}
 
-	TEST_CASE("SetPower throws exceptions")
+	TEST_CASE("SetPower throws exception")
 	{
 		Monster m;
 		CHECK_THROWS(m.setPower(-3));

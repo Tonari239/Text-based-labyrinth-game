@@ -1,5 +1,5 @@
 #include "engine.h"
-#include "inputFormatter.cpp"
+#include "inputFormatter.h"
 
 
 
@@ -49,7 +49,7 @@ void Engine::enterPassword(char* input, char encryptChar)
 {
 	char inputChar = '0';
 	int counter = 0;
-	while (inputChar != '\r')
+	while (inputChar != '\r') 
 	{
 		inputChar = _getch(); // used with  #include <conio.h>
 		if (inputChar == '\b' && counter != 0)
@@ -71,13 +71,13 @@ void Engine::enterPassword(char* input, char encryptChar)
 	cout << endl;
 }
 
-bool Engine::authorize(const char* pass)
+bool Engine::authorize(const char* requiredPass)
 {
 	bool isAuthorized = false;
 	cout << "Enter admin password:\n";
 	char input[MAX_LENGTH];
 	enterPassword(input, '*');
-	if (strcmp(pass, input) != 0)
+	if (strcmp(requiredPass, input) != 0)
 	{
 		cout << "Wrong password! Operation failed\n";
 		return isAuthorized;
@@ -93,7 +93,7 @@ void Engine::printHelp() const
 	cout << "open <file>             |opens <file> and enables user to make changes to map" << endl;
 	cout << "close                   |closes currently opened file" << endl;
 	cout << "save                    |saves currently opened file" << endl;
-	cout << "saveas <file>           |saves currently opened file in <file>" << endl;
+	cout << "saveas <file>           |saves currently opened file as <file>" << endl;
 	cout << "help                    |prints this information" << endl;
 	cout << "exit                    |exists program" << endl;
 	cout << "<direction>             |moves hero in selected direction - \"right\",\"left\",\"up\",\"down\"" << endl;
@@ -162,16 +162,16 @@ void Engine::run()
 			if (gameEngine.mGameFileManager.getUnsavedChanges())
 			{
 				cout << "Would you like to save unsaved changes? y/n" << endl;
-				char c;
+				char answer;
 				do
 				{
-					cin >> c;
-				} while (c!='y' && c!='n');
-				if (c == 'y')
+					cin >> answer;
+				} while (answer !='y' && answer !='n');
+				if (answer == 'y')
 				{
 					gameEngine.mGameFileManager.save(gameEngine.mHero, gameEngine.mMap);
 				}
-				else if (c == 'n')
+				else if (answer == 'n')
 				{
 					gameEngine.mGameFileManager.close();
 				}
@@ -225,7 +225,7 @@ void Engine::run()
 		}
 		else if (splitCommands[0] == "" || splitCommands[0] == " ")
 		{
-
+			//doing nothing on empty input
 		}
 		else
 		{

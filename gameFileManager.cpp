@@ -39,6 +39,11 @@ void GameFileManager::setFileName(string name)
 
 void GameFileManager::open(string fileName,Hero& hero,Map& map)
 {
+	if (getFileIsOpenStatus())
+	{
+		cout << "Currently file " << fileName << " is opened. Close it and try again!" << std::endl;
+		return;
+	}
 	setFileName(fileName);
 	setFileIsOpenStatus(true);
 	ifstream file(fileName);

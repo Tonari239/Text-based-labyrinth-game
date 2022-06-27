@@ -35,7 +35,7 @@ TEST_SUITE("Weapon")
 		CHECK(w2.getPercentStat() == 22);
 	}
 
-	TEST_CASE("level up")
+	TEST_CASE("Level up")
 	{
 		Weapon w;
 		w.levelUp();

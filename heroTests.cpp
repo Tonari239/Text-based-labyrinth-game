@@ -22,7 +22,7 @@ TEST_SUITE("Hero")
 		CHECK(h.getSpellPower() == 40);
 	}
 
-	TEST_CASE("Constructor for warrion")
+	TEST_CASE("Constructor for warrior")
 	{
 		Hero h(Race::WARRIOR);
 		CHECK(h.getPower() == 40);
@@ -31,7 +31,7 @@ TEST_SUITE("Hero")
 		CHECK(h.getSpellPower() == 10);
 	}
 
-	TEST_CASE("Level")
+	TEST_CASE("Get level")
 	{
 		Hero h(Race::HUMAN);
 		CHECK(h.getCurrentLevel() == 1);

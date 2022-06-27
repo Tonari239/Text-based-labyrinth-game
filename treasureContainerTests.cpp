@@ -59,7 +59,7 @@ TEST_SUITE("Test container")
 		CHECK(tc1.getAt(1)->getName() == "armor");
 	}
 
-	TEST_CASE("Remove treasure on index")
+	TEST_CASE("Remove treasure at index")
 	{
 		TreasureContainer tc1;
 		tc1.addTreasure(Spell());
@@ -74,7 +74,7 @@ TEST_SUITE("Test container")
 		CHECK(tc1.getAt(0)->getName() != "spell");
 	}
 
-	TEST_CASE("Remove treasure on index throws exception when index out of bound")
+	TEST_CASE("Remove treasure at index throws exception when index is out of bounds")
 	{
 		TreasureContainer tc1;
 		tc1.addTreasure(Spell());
@@ -82,7 +82,7 @@ TEST_SUITE("Test container")
 		CHECK_THROWS(tc1.removeIndex(2));
 	}
 
-	TEST_CASE("Remove treasure on index throws exception when collection is empty")
+	TEST_CASE("Remove treasure at index throws exception when collection is empty")
 	{
 		TreasureContainer tc1;
 		tc1.addTreasure(Spell());

@@ -7,6 +7,7 @@ using namespace std;
 
 #include "hero.h"
 #include "map.h"
+
 class GameFileManager
 {
 	string mCurentFileName;

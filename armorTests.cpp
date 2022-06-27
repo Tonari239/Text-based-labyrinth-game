@@ -35,7 +35,7 @@ TEST_SUITE("Armor")
 		CHECK(a2.getPercentStat() == 22);
 	}
 
-	TEST_CASE("level up")
+	TEST_CASE("Level up")
 	{
 		Armor a;
 		a.levelUp();
