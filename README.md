@@ -1,7 +1,7 @@
 # DNDRepo
-Програмата е реализация на конзолна игра „Dungeons and dragons“, където герой обикаля из карта и събира съкровища,биейки се с чудовища, използвайки оръжия или заклинания. Клетки, на които героят не е стъпвал, се означават с ‘?’, стените на лабиринта с ‚#‘, клетките, в които има чудовища с ‚M‘ и съответно клетките, в които има съкровища – с ‚T‘. Героят може да избере между три класа/раси – човек, маг или воин, като на всеки от тях съответстват различни статове. Всяко заклинание струва 5 мана, а когато героят не е в битка и ходи из картата, възстановява 1 мана на стъпка.
-Героят има инвентар ( оръжие, заклинание и броня ), които добавят бонуси към неговите физически атаки ( оръжие ), магически атаки ( заклинание ), или към неговата защита ( броня ), когато се бие с чудовище.
-При зареждане на приложението, ако съществува „backup“ файл от някоя предна сесия, потребителят ще има възможност да възстанови тази своя сесия. Файловете са предвидени да се ползват като “save files” от видео игра, тоест в тях се записва информация за героя и съответната карта. Когато се отвори, потребителят зарежда съответния “save file” и извършва промени по него чрез команди.
+The program is a simplified realisation of the game „Dungeons and dragons“ for the Object-Oriented course at Sofia university. In the game, the hero wanders through the map, collects items, fights monsters and uses spell or weapons. Cells that haven't yet been discovered are marked with a ‘?’, the walls of the labyrinth with ‚#‘, cells inhabited by monsters - ‚M‘ and cells, where there is a collectible - ‚T‘. The character can choose between three classes/races – human, mage or warrior, each of them with different base stats. Every spell costs 5 mana, and when the character is not in combat and wanders through the map, he restores 1 mana per step.
+The character has inventory ( weapon, spell and armor), which add bonuses to their physical attacks (weapon), magical attacks (spell) or defense (armor), when in combat.
+On application startup, if there exists a backup file from a previous session, the user has the opportunity to restore said session. Files are intended to be used as “save files” from video games, so they store information about the character and the current layout of the map. When started, the player loads the corresponding “save file”, which can be altered through the command interface:
 Потребителят може да избира измежду 10 команди, а именно:
 1.	open <file>
 2.	close
@@ -13,18 +13,17 @@
 8.	restore
 9.	visualize
 10.	generate
-Приема се вход на потребителя, където ако той не съответства на нито една от подадените команди, се извежда съобщение за грешка ‘Invalid command!’.
+
+If the user input does not match any of the predefined commands, an ‘Invalid command!’ message is displayed.
 
   
   
   
-  Класът Hero е героят, който потребителят навигира. В зависимост от расата си, той може да има различни показатели:
-Човек– Сила: 30, Мана: 20, Живот: 50, Сила на заклинания: 20
-Маг– Сила: 10, Мана: 40, Живот: 50, Сила на заклинания: 40
-Воин – Сила:40, Мана:10,Живот: 50, Сила на заклинания: 10
-Започва от първо ниво и има инвентар, в който може да съхранява само по едно заклинание, оръжие и броня. При създаването си той няма никаква броня, но има заклинание и оръжие с бонуси от 20 процента.
+  The class Hero represents the playablе character. Depending on the chosen race, the default stats differ:
+Human – Strength: 30, Mana: 20, HP: 50, Spellpower: 20
+Mage – Strength: 10, Mana: 40, HP: 50, Spellpower: 40
+Warrior – Strength: 40, Mana: 10, HP: 50, Spellpower: 10
+The character begins their journy at level 1, and has an inventory where only one spell, weapon and armor acan be stored. Upon creation, the character has no armor - just a spell and weapon with bonuses of 20 percent. 
 
   
-  GameEngine е отговорен за логиката на играта, което включва навигирането на героя, генериране на карта и нива, действия при попадане на съответна клетка като например битки или взимане на съкровище. Отделно запазва всяко генерирано ниво във файл с име „gameFile<number>.txt“, където <number> е броят генерирано ниво подред. Има за приятелски клас Engine
-  
-  Класът Engine е реализиран като Singleton, затова коснтрукторите му не могат да бъдат достъпвани и може да се създаде само един обект с getEngine
+  GameEngine is the class responsible for handling game logic, which includes character navigation, map and level generation, actions corresponding to the current cell, such as battle initiation or item pickup. Each generated level is stored in a file with the name „gameFile<number>.txt“, where <number> is the number of the generated level.
