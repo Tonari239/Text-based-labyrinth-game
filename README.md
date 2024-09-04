@@ -3,13 +3,13 @@ The program is a simplified realisation of the game „Dungeons and dragons“ f
 The character has inventory ( weapon, spell and armor), which add bonuses to their physical attacks (weapon), magical attacks (spell) or defense (armor), when in combat.
 On application startup, if there exists a backup file from a previous session, the user has the opportunity to restore said session. Files are intended to be used as “save files” from video games, so they store information about the character and the current layout of the map. When started, the player loads the corresponding “save file”, which can be altered through the command interface:
 Потребителят може да избира измежду 10 команди, а именно:
-1.	open <file>
+1.	open `<file>`
 2.	close
 3.	save
-4.	saveas <file>
+4.	saveas `<file>`
 5.	help
 6.	exit
-7.	<direction>
+7.	`<direction>`
 8.	restore
 9.	visualize
 10.	generate
